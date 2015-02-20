@@ -17,4 +17,9 @@ Example:
     
     mortgage.balances(); // even neater stuff
       
+### Use with D3
 
+    d3
+        .select('svg')
+        .data($$$.amortize(100000).balances())
+        .enter(); //sweet!
