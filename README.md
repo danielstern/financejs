@@ -26,7 +26,7 @@ Example:
 
 ### to do
 
-    - add full support for expenses
-      - expenses support a function operator, so you may have the expense for maintanance go up over the years
-    - add incomes
-    - add deductions
+- add full support for expenses
+  - expenses support a function operator, so you may have the expense for maintanance go up over the years
+- add incomes
+- add deductions
