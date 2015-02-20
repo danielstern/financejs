@@ -5,6 +5,7 @@ A library for calculating things
 Use to get amortization with handy-D3 like syntax and D3 compatible output.
 
 Example:
+
     var mortgage = $$$.amortize('300000')
       .down('10%')
       .period('25y')
