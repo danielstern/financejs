@@ -13,31 +13,36 @@ function Amortization(){
 	var compoundingFrequency = 2;
 
 	var principal = 100000;
-	this.interestRate = 0.1;
+	var interestRate = 0.1;
 	var down = 20000;
 	var months = 240;
 
-	this.expenses = [];
-	this.incomes = [];
-	this.balances = [];
+	var expenses = [];
+	var incomes = [];
+	var balances = [];
 
 	this.calculate = function(){
-		a.balances = [];
+		balances = [];
 		var P = principal - down;
 		var equity = down;
-		var i = a.interestRate / 12;
+		var i = interestRate / 12;
 		var n = months;
 		var annuity =  P * (i + i / (Math.pow(1+i,n) -1));
 		for (var j = n - 1; j >= 0; j--) {
-			a.balances[j] = {};
+			balances[j] = {};
 		}
 		
-		a.balances = a.balances.map(function(d,k){
+		balances = balances.map(function(d,k){
 			var prev = P;
 			P*=1+i;
 			P-=annuity;
 			var change = prev - P;
 			equity +=change;
+
+			var exp = expenses[0] ? expenses.map(function(a){return a.cost})
+				.reduce(function(a,b){
+					return a + b;
+				}) : 0;
 
 
 
@@ -46,9 +51,26 @@ function Amortization(){
 				equity:equity,
 				interest_paid:annuity-change,
 				equity_paid:change,
-				period:k
+				period:k,
+				expenses:exp
 			};
 		})
+	}
+
+	this.expense = function(name,cost){
+		var index = expenses.map(function(e){return e.name}).indexOf(name);
+		if (index === -1) {
+
+			expenses.push({
+				name:name,
+				cost:cost
+			})
+		} else {
+			expenses[index].cost = cost;
+		}
+
+		a.calculate();
+		return a;
 	}
 
 
@@ -71,9 +93,9 @@ function Amortization(){
 
 	this.interest = function(i){
 		if (i === undefined) {
-			return a.interestRate;
+			return interestRate;
 		}
-		a.interestRate = i;
+		interestRate = i;
 		a.calculate();
 		return a;
 	}
@@ -87,6 +109,23 @@ function Amortization(){
 		a.calculate();
 		return a;
 	}
+
+
+
+
+	this.down = function(d){
+		if (d === undefined) {
+			return down;
+		}
+		down = d;
+		a.calculate();
+		return a;
+	}
+
+	this.balances = function(){
+		return balances;
+	}
+
 
 }
 
