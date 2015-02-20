@@ -117,7 +117,12 @@ function Amortization(){
 		if (d === undefined) {
 			return down;
 		}
-		down = d;
+		if (d[d.length -1] === '%') {
+			down = 0.01 * (+d.slice(0,d.length-1));
+		} else {
+			down = d;
+		}
+
 		a.calculate();
 		return a;
 	}
