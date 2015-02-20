@@ -23,3 +23,10 @@ Example:
         .select('svg')
         .data($$$.amortize(100000).balances())
         .enter(); //sweet!
+
+### to do
+
+    - add full support for expenses
+      - expenses support a function operator, so you may have the expense for maintanance go up over the years
+    - add incomes
+    - add deductions
