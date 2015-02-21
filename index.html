@@ -33,7 +33,44 @@
 
 <body ng-app=Mortgage.Demo>
 
-	Mortgagizer
+	<h1>
+		Mortgagizer
+	</h1>
+	<h2>
+		Principal vs Equity over Time
+	</h2>
+	<table >
+		<thead>
+			<tr>
+				<th>
+					Period
+				</th>
+				<td ng-repeat='balance in balances'>
+					{{balance.period}}
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>
+					Principal
+				</th>	
+				<td ng-repeat='balance in balances'>
+					{{balance.P | currency}}
+				</td>	
+			</tr>
+			<tr>
+				<th>
+					Equity
+				</th>		
+				<td ng-repeat='balance in balances'>
+					{{balance.equity | currency}}
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+<!-- 
 	<table >
 		<thead>
 			<tr>
@@ -49,7 +86,7 @@
 				</td>
 			</tr>
 		</tbody>
-	</table>
+	</table> -->
 	
 	<script src=finance.js></script>
 	<script src='bower_components/angular/angular.js'></script>

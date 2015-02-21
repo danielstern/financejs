@@ -29,7 +29,8 @@ angular.module('Mortgage.Demo',[])
 
 
 	$rootScope.mortgage = mortgage;
-	$rootScope.balances = mortgage.balances().filter(function(a,b){return b%12===0});
+	$rootScope.balances = mortgage.balances()
+		.filter(function(a,b){return b%60===59});
 
 
 })
