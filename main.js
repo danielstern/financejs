@@ -15,3 +15,4 @@ var a = $$$.amortize(100000)
 		return 1100;
 	})
 	.income('parking',50)
+	.taxrate(0.37)

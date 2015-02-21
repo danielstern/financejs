@@ -20,7 +20,7 @@ var $$$ = {};
 		var down = 20000;
 		var months = 240;
 
-		var tax = 0.35;
+		var taxrate = 0.35;
 		var depreciation = 0.04;
 
 		var expenses = [];
@@ -80,9 +80,9 @@ var $$$ = {};
 					return a + b;
 				}) : 0;
 
-				var expenses_deductible = exp * tax;
+				var expenses_deductible = exp * taxrate;
 				var depreciation_total = depreciation * principal  / 12;
-				var depreciation_deductible = depreciation_total * tax;
+				var depreciation_deductible = depreciation_total * taxrate;
 
 				return {
 					P:P,
@@ -94,16 +94,19 @@ var $$$ = {};
 					expenses:exp,
 					payment:annuity,
 					income:inc,
-					net_before_deductions:inc-exp-annuity,
+					net_before_deductions:inc+change-exp-annuity,
 					deductions_from_expenses:expenses_deductible,
 					depreciation:depreciation_total,
 					deductions_from_depreciation:depreciation_deductible,
-					net_after_deductions:inc-exp-annuity+expenses_deductible+depreciation_deductible
+					net_after_deductions:inc+change-exp-annuity+expenses_deductible+depreciation_deductible
 				};
 			})
 		}
 
 		this.expense = function(name,cost){
+			if (name === undefined) {
+				return expenses;
+			}
 			var index = expenses.map(function(e){return e.name}).indexOf(name);
 			if (index === -1) {
 				if (cost === undefined) {
@@ -167,6 +170,20 @@ var $$$ = {};
 				interestRate = 0.01 * (+i.slice(0,i.length-1));
 			} else {
 				interestRate = i;
+			}
+			
+			a.calculate();
+			return a;
+		}
+
+		this.taxrate = function(t){
+			if (t === undefined) {
+				return taxrate;
+			}
+			if (t[t.length -1] === '%') {
+				taxrate = 0.01 * (+t.slice(0,t.length-1));
+			} else {
+				taxrate = t;
 			}
 			
 			a.calculate();
