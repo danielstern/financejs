@@ -312,6 +312,280 @@
 			</table>
 		</div>		
 	</div>
+	<div class="row">
+		<div class="six columns">
+			<h2>
+				ROI and Cap Rate
+			</h2>
+			<table >
+				<thead>
+					<tr>
+						<th>
+							Period
+						</th>
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.period + 1}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>
+							ROI
+						</th>	
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.roi * 100 | number:2}}%
+						</td>	
+					</tr>
+					<tr>
+						<th>
+							Cap Rate
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.cap_rate * 100 | number:2}}%
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="six columns">
+			<h2>
+				Interest Rate and Payment
+			</h2>
+			<table >
+				<thead>
+					<tr>
+						<th>
+							Period
+						</th>
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.period + 1}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>
+							Interest Rate
+						</th>	
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.interest_rate * 100 | number:2}}%
+						</td>	
+					</tr>
+					<tr>
+						<th>
+							Payment
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.payment|currency}}
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="six columns">
+			<h2>
+				Expenses
+			</h2>
+			<table >
+				<thead>
+					<tr>
+						<th>
+							Period
+						</th>
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.period + 1}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat='expense in simpleBalances[0].expenses_calculated'>
+						<th>
+							{{expense.name}}
+						</th>	
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.expenses_calculated[$parent.$index].cost | currency}}
+						</td>	
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="six columns">
+			<h2>
+				Gross Income
+			</h2>
+			<table >
+				<thead>
+					<tr>
+						<th>
+							Period
+						</th>
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.period + 1}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat='income in simpleBalances[0].incomes_calculated'>
+						<th>
+							{{income.name}}
+						</th>	
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.incomes_calculated[$parent.$index].value | currency}}
+						</td>	
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="six columns">
+			<h2>
+				Gross Expenses and Gross Income
+			</h2>
+			<table >
+				<thead>
+					<tr>
+						<th>
+							Period
+						</th>
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.period + 1}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>
+							Gross Expenses
+						</th>	
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.expenses + balance.payment|currency}}
+						</td>	
+					</tr>
+					<tr>
+						<th>
+							Gross Income
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.income|currency}}
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="six columns">
+			<h2>
+				Sources of Net Income
+			</h2>
+			<table >
+				<thead>
+					<tr>
+						<th>
+							Period
+						</th>
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.period + 1}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>
+							Gross Income
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.income|currency}}
+						</td>
+
+					</tr>
+					<tr>
+						<th>
+							Gains in Equity
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.equity_paid|currency}}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Depreciation Deductible
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.deductions_from_depreciation|currency}}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Expenses Deductible
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.deductions_from_expenses|currency}}
+						</td>
+					</tr>
+					<tr>
+						<th>
+							Interest Deductible
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.interest_deductible|currency}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="six columns">
+			<h2>
+				Net Before and After Deductions
+			</h2>
+			<table >
+				<thead>
+					<tr>
+						<th>
+							Period
+						</th>
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.period + 1}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>
+							Net Before Deductions
+						</th>	
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.net_before_deductions|currency}}
+						</td>	
+					</tr>
+					<tr>
+						<th>
+							Net After Deductions
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.net_after_deductions|currency}}
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</div>
 	<p class=footer>
 		made with financejs &copy;2015 daniel stern, danielstern.ca
 	</p>

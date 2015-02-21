@@ -93,15 +93,19 @@ var $$$ = {};
 					return a + b;
 				}) : 0;
 
+				var interest_paid = annuity - change;
 				var expenses_deductible = expenses_total * taxrate;
+				var interest_deductible = interest_paid * taxrate;
 				var depreciation_total = depreciation * principal  / 12;
 				var depreciation_deductible = depreciation_total * taxrate;
-				var net_after_deductions = incomes_total+change-expenses_total-annuity+expenses_deductible+depreciation_deductible;
+				var net_after_deductions = incomes_total - interest_paid- expenses_total + expenses_deductible+depreciation_deductible+interest_deductible;
+				var net_before_deductions = incomes_total-expenses_total-interest_paid
 
 				balance.P = P;
 				balance.equity = equity;
-				balance.interest_paid = annuity-change;
+				balance.interest_paid = interest_paid;
 				balance.interest_rate = i*12;
+				balance.interest_deductible = interest_deductible;
 				balance.equity_paid = change;
 				balance.period = k;
 				balance.expenses_calculated = expenses_calculated;
@@ -109,7 +113,7 @@ var $$$ = {};
 				balance.expenses = expenses_total;
 				balance.payment = annuity;
 				balance.incomes_calculated = incomes_calculated;
-				balance.net_before_deductions = incomes_total+change-expenses_total-annuity;
+				balance.net_before_deductions = net_before_deductions;
 				balance.deductions_from_expenses = expenses_deductible;
 				balance.depreciation = depreciation_total;
 				balance.deductions_from_depreciation = depreciation_deductible;

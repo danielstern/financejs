@@ -71,7 +71,7 @@ angular.module('Mortgage.Demo',[])
 					}
 				} else if (expense.calculated === 'Percent of Value') {
 					// return 100;
-					return mortgage.principal() * +expense.value / 100 / 12 + +expense.value / 100 / 12 * i *  +expense.annual_increase / 12 / 100;
+					return mortgage.principal() * (+expense.value / 100 / 12 + +expense.value / 100 / 12 * i *  +expense.annual_increase / 12 / 100);
 				}
 			})
 		})
