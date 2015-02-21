@@ -44,29 +44,30 @@ Example:
     mortgage.balances(); // [Array(240)]
     
     mortgage.balances()[150]
-      /*
-        {P: 70359.36398033104, 
-        equity: 66540.63601966896, 
-        interest_paid: 327.6621230204943, 
-        interest_rate: 0.05562500000000001, 
+    {	
+        P: 70359.36, 
+        equity: 66540.63, 
+        interest_paid: 327.663, 
+        interest_rate: 0.055, 
         equity_paid: 327.29,
-        cap_rate: 0.0020847868910960476,
-        deductions_from_depreciation: 168.84333333333333,
-        deductions_from_expenses: 753.4229833333333,
-        depreciation: 456.3333333333333,
-        equity: 66540.63601966896,
-        equity_paid: 327.2962667856191,
-        expenses: 2036.2783333333332,
+        cap_rate: 0.00208,
+        deductions_from_depreciation: 168.84,
+        deductions_from_expenses: 753.42,
+        depreciation: 456.33,
+        equity: 66540.63,
+        equity_paid: 327.29,
+        expenses: 2036.278,
         expenses_calculated: Array[6],
         income: 1670,
         incomes_calculated: Array[2],
-        interest_paid: 327.6621230204943,
-        interest_rate: 0.05562500000000001,
-        net_after_deductions: 228.32586031283913,
-        net_before_deductions: -693.9404563538275,
-        payment: 654.9583898061134,
+        interest_paid: 327.66,
+        interest_rate: 0.055,
+        net_after_deductions: 228.32,
+        net_before_deductions: -693.94,
+        payment: 654.95,
         period: 150,
-        roi: 0.0034313747804476584
+        roi: 0.00343
+    }
       
 ### Use with D3
 
