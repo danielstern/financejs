@@ -40,11 +40,11 @@
 			
 		
 			<h1>
-				Mortgagizer
+				{{details.name}}
 			</h1>
-			<p>
-				Bean counter and number cruncher, at your service.
-			</p>
+			<!-- <p>
+				Price {{details.price}} , Cap ?
+			</p> -->
 			<form>
 				<div class="row">
 					<div class="six columns">
@@ -181,22 +181,26 @@
 						<h3>
 						Expenses
 						</h3>
+						<p ng-if=!details.expenses[0]>
+							No expenses.							
+						</p>
 					</div>
+					
 				</div>
-				<div class="row">					
-					<div class="four columns">
+				<div class="row" ng-repeat='expense in details.expenses'>					
+					<div class="three columns">
 						<label for="">
 							Name
 						</label>
-						<input class="u-full-width" type="text" id="prop_name">
+						<input class="u-full-width" ng-model=expense.name type="text" id="prop_name">
 					</div>
 					<div class="two columns">
 						<label for="">
 							Cost
 						</label>
-						<input class="u-full-width" type="text" id="prop_name">
+						<input class="u-full-width" ng-model=expense.value type="text" id="prop_name">
 					</div>
-					<div class="four columns">
+					<div class="three columns">
 
 						<label for="prop_type">Calculated</label>
 						<select class="u-full-width" id="prop_type">
@@ -206,10 +210,18 @@
 						</select>
 					</div>
 					<div class="two columns">
+						<label for="rent_increase">
+							Increase/ᴀ (%)
+						</label>
+						<input class="u-full-width" ng-model=expense.annual_increase type="text" id="rent_increase">
+
+						</select>
+					</div>
+					<div class="two columns">
 						<label for="remove field">
 							Remove
 						</label>
-						<button>
+						<button ng-click='details.expenses.splice($index,1)'>
 							-
 						</button>
 
@@ -218,7 +230,7 @@
 				</div>
 				<div class="row">
 					<div class="six columns">
-						<button>+</button>
+						<button ng-click='details.expenses.push({})'>Add expense</button>
 					</div>
 				</div>
 			</form>

@@ -43,6 +43,13 @@ angular.module('Mortgage.Demo',[])
 			value:1100,
 			annual_increase:0.03,
 			vac_rate:0.15
+		}],
+		expenses:[{
+			name:'Maintenance',
+			value:400.75,
+			annual_increase:0.03,
+			vac_rate:0.15,
+			calculated:'flat_rate'
 		}]
 
 	}
