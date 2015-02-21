@@ -13,6 +13,7 @@ var $$$ = {};
 	function Amortization(){
 
 		var a = this;
+		var mortgage = this;
 		var compoundingFrequency = 2;
 
 		var principal = 100000;
@@ -58,20 +59,24 @@ var $$$ = {};
 				var change = prev - P;
 				equity +=change;
 
-				var exp = expenses[0] ? expenses.map(function(a){
+				var expenses_calculated =  expenses.map(function(a){
 					if (isFunction(a.cost)){
-						return a.cost(a,k);
+						return {
+							name:a.name,
+							cost:a.cost(mortgage,k)
+						}
 					} else {
-						return a.cost;
+						return a;
 					}				
-				})
-				.reduce(function(a,b){
+				});
+				var expenses_total = expenses_calculated[0] ? expenses_calculated
+					.map(function(z){return z.cost}).reduce(function(a,b){
 					return a + b;
 				}) : 0;
 
 				var inc = incomes[0] ? incomes.map(function(a){
 					if (isFunction(a.value)){
-						return a.value(a,k);
+						return a.value(mortgage,k);
 					} else {
 						return a.value;
 					}				
@@ -80,7 +85,7 @@ var $$$ = {};
 					return a + b;
 				}) : 0;
 
-				var expenses_deductible = exp * taxrate;
+				var expenses_deductible = expenses_total * taxrate;
 				var depreciation_total = depreciation * principal  / 12;
 				var depreciation_deductible = depreciation_total * taxrate;
 
@@ -91,14 +96,14 @@ var $$$ = {};
 					interest_rate:i*12,
 					equity_paid:change,
 					period:k,
-					expenses:exp,
+					expenses_calculated:expenses_calculated,
 					payment:annuity,
 					income:inc,
-					net_before_deductions:inc+change-exp-annuity,
+					net_before_deductions:inc+change-expenses_total-annuity,
 					deductions_from_expenses:expenses_deductible,
 					depreciation:depreciation_total,
 					deductions_from_depreciation:depreciation_deductible,
-					net_after_deductions:inc+change-exp-annuity+expenses_deductible+depreciation_deductible
+					net_after_deductions:inc+change-expenses_total-annuity+expenses_deductible+depreciation_deductible
 				};
 			})
 		}
@@ -125,18 +130,22 @@ var $$$ = {};
 		}
 
 		this.income = function(name,value){
+			if (name === undefined) {
+				return incomes;
+			}
 			var index = incomes.map(function(e){return e.name}).indexOf(name);
 			if (index === -1) {
+				incomes.push({
+					name:name,
+					value:value
+				})	
+			} else {
 				if (value === undefined) {
 					return incomes[index];
-				} else {
-					incomes.push({
-						name:name,
-						value:value
-					})	
-				}
-			} else {
+				} 
+
 				incomes[index].value = value;
+				
 			}
 
 			a.calculate();
