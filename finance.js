@@ -20,6 +20,9 @@ var $$$ = {};
 		var down = 20000;
 		var months = 240;
 
+		var tax = 0.35;
+		var depreciation = 0.04;
+
 		var expenses = [];
 		var incomes = [];
 		var balances = [];
@@ -30,7 +33,7 @@ var $$$ = {};
 			var n = months;
 			var P = principal - down;
 			var equity = down;
-		
+
 			
 			for (var j = n - 1; j >= 0; j--) {
 				balances[j] = {};
@@ -77,7 +80,9 @@ var $$$ = {};
 					return a + b;
 				}) : 0;
 
-
+				var expenses_deductible = exp * tax;
+				var depreciation_total = depreciation * principal  / 12;
+				var depreciation_deductible = depreciation_total * tax;
 
 				return {
 					P:P,
@@ -89,7 +94,11 @@ var $$$ = {};
 					expenses:exp,
 					payment:annuity,
 					income:inc,
-					net_before_taxes:inc-exp-annuity
+					net_before_deductions:inc-exp-annuity,
+					deductions_from_expenses:expenses_deductible,
+					depreciation:depreciation_total,
+					deductions_from_depreciation:depreciation_deductible,
+					net_after_deductions:inc-exp-annuity+expenses_deductible+depreciation_deductible
 				};
 			})
 		}
