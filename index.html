@@ -58,7 +58,7 @@
 						<label for="prop_name">
 							Property Name
 						</label>
-						<input class="u-full-width" type="text" placeholder="1120 Sunnvale Crescent" id="prop_name">
+						<input ng-model=details.name class="u-full-width" type="text" placeholder="1120 Sunnvale Crescent" id="prop_name">
 					</div>
 					<div class="six columns">
 						<label for="prop_type">Property Type</label>
@@ -86,28 +86,33 @@
 						<label for="price">
 							Price ($)
 						</label>
-						<input class="u-full-width" type="number" id="price">
+						<input class="u-full-width" ng-model=details.price type="text" id="price">
 						
 						<label for="down_payment">
 							Down Payment ($)
 						</label>
-						<input class="u-full-width" type="number" id="down_payment">
+						<input ng-model=details.down class="u-full-width" type="text" id="down_payment">
+
+						<label for="amortization">
+							Amortization (years)
+						</label>
+						<input class="u-full-width" ng-model=details.amortization type="text" id="amortization">
 
 						<label for="property_tax">
 							Property Tax / ᴀ ($)
 						</label>
-						<input class="u-full-width" type="number" id="property_tax">
+						<input class="u-full-width" ng-model=details.property_tax type="text" id="property_tax">
 
 						<label for="property_tax">
 							Net Depreciable Percentage
 						</label>
-						<input class="u-full-width" type="number" id="property_tax">
+						<input class="u-full-width" ng-model='details.depreciable_percentage' type="text" id="property_tax">
 						<p>Includes rate and percentage of property that is depreciable.  <span title="If the property costs $200000, and the land is worth $100000, and the depreciation on the property is 4%, this number should be entered as 2">(!)</span></p>
 
-						<label for="property_tax">
+						<label for="taxrate">
 							Taxable Rate (%)
 						</label>
-						<input class="u-full-width" type="number" id="property_tax">
+						<input  ng-model='details.taxrate' class="u-full-width" type="text" id="taxrate">
 					</div>
 				</div>
 
@@ -117,28 +122,31 @@
 						<h3>
 						Income
 						</h3>
+						<p ng-if=!details.incomes[0]>
+							No income.							
+						</p>
 					</div>
 				</div>
-				<div class="row">					
+				<div class="row" ng-repeat='income in details.incomes'>					
 					<div class="four columns">
 						<label for="income_name">
 							Name
 						</label>
-						<input class="u-full-width" type="number" id="income_name">
+						<input class="u-full-width" ng-model=income.name type="text" id="income_name">
 						
 					</div>
 					<div class="two columns">
 						<label for="income_value">
 							Value
 						</label>
-						<input class="u-full-width" type="number" id="income_value">
+						<input class="u-full-width" ng-model=income.value type="text" id="income_value">
 						
 					</div>
 					<div class="two columns">
 						<label for="rent_increase">
 							Increase/ᴀ (%)
 						</label>
-						<input class="u-full-width" type="number" id="rent_increase">
+						<input class="u-full-width" ng-model=income.annual_increase type="text" id="rent_increase">
 
 						</select>
 					</div>
@@ -146,7 +154,7 @@
 						<label for="rent_increase">
 							Vac Rate (%)
 						</label>
-						<input class="u-full-width" type="number" id="rent_increase">
+						<input class="u-full-width" ng-model=income.vac_rate type="text" id="rent_increase">
 
 						</select>
 					</div>
@@ -154,7 +162,7 @@
 						<label for="remove field">
 							Remove
 						</label>
-						<button>
+						<button ng-click='details.incomes.splice($index,1)'>
 							-
 						</button>
 
@@ -163,7 +171,7 @@
 				</div>
 				<div class="row">
 					<div class="six columns">
-						<button>+</button>
+						<button ng-click='details.incomes.push({})'>Add Income</button>
 					</div>
 				</div>
 
@@ -180,13 +188,13 @@
 						<label for="">
 							Name
 						</label>
-						<input class="u-full-width" type="number" id="prop_name">
+						<input class="u-full-width" type="text" id="prop_name">
 					</div>
 					<div class="two columns">
 						<label for="">
 							Cost
 						</label>
-						<input class="u-full-width" type="number" id="prop_name">
+						<input class="u-full-width" type="text" id="prop_name">
 					</div>
 					<div class="four columns">
 

@@ -30,6 +30,22 @@ angular.module('Mortgage.Demo',[])
 
 
 	$rootScope.mortgage = mortgage;
+	$rootScope.details = {
+		price:136900,
+		down:13690,
+		property_tax:1200,
+		taxrate:0.35,
+		name:'1812-1152 Sunnyvale Crescent',
+		depreciable_percentage:2,
+		amortization:25,
+		incomes:[{
+			name:'Rent',
+			value:1100,
+			annual_increase:0.03,
+			vac_rate:0.15
+		}]
+
+	}
 	$rootScope.balances = mortgage.balances()
 	
 	$rootScope.simpleBalances = mortgage.balances()
