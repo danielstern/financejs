@@ -47,6 +47,7 @@ var $$$ = {};
 			function getBalance(d,k){
 
 				var i;
+				var balance = balances[k] || {};
 
 				if (isFunction(interestRate)){
 					i = interestRate(a,k) / 12;
@@ -97,26 +98,27 @@ var $$$ = {};
 				var depreciation_deductible = depreciation_total * taxrate;
 				var net_after_deductions = incomes_total+change-expenses_total-annuity+expenses_deductible+depreciation_deductible;
 
-				return {
-					P:P,
-					equity:equity,
-					interest_paid:annuity-change,
-					interest_rate:i*12,
-					equity_paid:change,
-					period:k,
-					expenses_calculated:expenses_calculated,
-					income:incomes_total,
-					expenses:expenses_total,
-					payment:annuity,
-					incomes_calculated:incomes_calculated,
-					net_before_deductions:incomes_total+change-expenses_total-annuity,
-					deductions_from_expenses:expenses_deductible,
-					depreciation:depreciation_total,
-					deductions_from_depreciation:depreciation_deductible,
-					net_after_deductions:net_after_deductions,
-					cap_rate:net_after_deductions/(principal-down),
-					roi:net_after_deductions/(equity),
-				};
+				balance.P = P;
+				balance.equity = equity;
+				balance.interest_paid = annuity-change;
+				balance.interest_rate = i*12;
+				balance.equity_paid = change;
+				balance.period = k;
+				balance.expenses_calculated = expenses_calculated;
+				balance.income = incomes_total;
+				balance.expenses = expenses_total;
+				balance.payment = annuity;
+				balance.incomes_calculated = incomes_calculated;
+				balance.net_before_deductions = incomes_total+change-expenses_total-annuity;
+				balance.deductions_from_expenses = expenses_deductible;
+				balance.depreciation = depreciation_total;
+				balance.deductions_from_depreciation = depreciation_deductible;
+				balance.net_after_deductions = net_after_deductions;
+				balance.cap_rate = net_after_deductions/(principal-down);
+				balance.roi = net_after_deductions/(equity);
+
+				return balance;
+				
 			}
 		}
 
