@@ -193,6 +193,21 @@ var $$$ = {};
 			return a;
 		}
 
+
+		this.depreciation = function(d){
+			if (d === undefined) {
+				return depreciation;
+			}
+			if (d[d.length -1] === '%') {
+				depreciation = 0.01 * (+d.slice(0,d.length-1));
+			} else {
+				depreciation = d;
+			}
+			
+			a.calculate();
+			return a;
+		}
+
 		this.taxrate = function(t){
 			if (t === undefined) {
 				return taxrate;
