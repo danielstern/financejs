@@ -30,7 +30,7 @@ var $$$ = {};
 			var n = months;
 			var P = principal - down;
 			var equity = down;
-				
+		
 			
 			for (var j = n - 1; j >= 0; j--) {
 				balances[j] = {};
@@ -182,7 +182,8 @@ var $$$ = {};
 				return down;
 			}
 			if (d[d.length -1] === '%') {
-				down = 0.01 * (+d.slice(0,d.length-1));
+				var percent = 0.01 * (+d.slice(0,d.length-1));
+				down = percent * a.principal();
 			} else {
 				down = d;
 			}
