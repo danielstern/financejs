@@ -35,6 +35,7 @@ Example:
 	.expense('insurance', function(d,i){
 		return d.principal() * 0.005 / 12;
 	})
+	.depreciation('4%')
 	.expense('property management',function(d,i){
 		return d.income('rent').value(d,i) * 0.8;
 	})
