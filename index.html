@@ -31,7 +31,19 @@ index.html
 
 <body ng-app=Mortgage.Demo>
 
-	{{balances}}
+
+	<table border='1px solid #333'>
+		<thead>
+			<th ng-repeat='(key,val) in balances[0]'>
+				{{key}}
+			</th>		
+		</thead>
+		<tr ng-repeat='balance in balances'>
+			<td title={{key}} ng-repeat='(key,val) in balance'>
+				{{val | number:2}}
+			</td>
+		</tr>
+	</table>
 	
 	<script src=finance.js></script>
 	<script src='bower_components/angular/angular.js'></script>

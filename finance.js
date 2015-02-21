@@ -114,8 +114,10 @@ var $$$ = {};
 				balance.depreciation = depreciation_total;
 				balance.deductions_from_depreciation = depreciation_deductible;
 				balance.net_after_deductions = net_after_deductions;
-				balance.cap_rate = net_after_deductions/(principal-down);
-				balance.roi = net_after_deductions/(equity);
+				balance.cap_rate = net_after_deductions * 12 / (principal);
+				balance.roi = net_after_deductions * 12 / equity;
+
+
 
 				return balance;
 				

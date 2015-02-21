@@ -10,11 +10,11 @@ angular.module('Mortgage.Demo',[])
 		.down('20%')
 		.period('25y')
 		.income('rent',function(d,i){
-			return 1100 + i * 3;
+			return 1300 + i * 3;
 		})
 		.expense('maintenance',400.75)
 		.expense('property tax',1200 / 12)
-		.expense('improvements', 1000 / 12)
+		.expense('improvements', 900 / 12)
 		.expense('down payment interest', function(d,i){
 			return d.down() * 0.068 / 12;
 		})
@@ -29,7 +29,7 @@ angular.module('Mortgage.Demo',[])
 
 
 	$rootScope.mortgage = mortgage;
-	$rootScope.balances = mortgage.balances();
+	$rootScope.balances = mortgage.balances().filter(function(a,b){return b%12===0});
 
 
 })

@@ -52,7 +52,7 @@ mortgage.balances()[150]
 	interest_paid: 327.663, // interest paid this period 
 	interest_rate: 0.055, // interest rate this period (calculated)
 	equity_paid: 327.29, // equity paid this period
-	cap_rate: 0.00208, // the cap rate this period (return on the lender's principal)
+	cap_rate: 0.0208, // return on the value of property (annualized)
 	deductions_from_depreciation: 168.84, // the amount of taxes credits available from depreciation
 	deductions_from_expenses: 753.42,
 	depreciation: 456.33, // how much the value of the house depreciated
@@ -64,7 +64,7 @@ mortgage.balances()[150]
 	net_before_deductions: -693.94, // gross income minus expenses
 	payment: 654.95, // how much is due this month in the mortgage
 	period: 150, // what period (month) it is, relative to the first payment at 0
-	roi: 0.00343 // return on your down payment
+	roi: 0.0343 // return on your equity (annualized)
 }
 ```
       
