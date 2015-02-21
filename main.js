@@ -24,3 +24,8 @@ var mortgage = $$$.amortize(136900)
 	})
 	.income('parking',120)
 	.taxrate(0.37)
+
+angular.module('Mortgage.Demo',[])
+.run(function($rootScope){
+
+})

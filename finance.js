@@ -29,18 +29,22 @@ var $$$ = {};
 		var balances = [];
 
 		this.calculate = function(){
-			balances = [];
 
 			var n = months;
+
+			while(balances.length > n && n > 0) {
+				balances.pop();
+			}
+
 			var P = principal - down;
 			var equity = down;
 
 			
-			for (var j = n - 1; j >= 0; j--) {
-				balances[j] = {};
+			for (var j = 0; j < n; j++) {
+				balances[j] = getBalance(a,j);
 			}
 			
-			balances = balances.map(function(d,k){
+			function getBalance(d,k){
 
 				var i;
 
@@ -113,7 +117,7 @@ var $$$ = {};
 					cap_rate:net_after_deductions/(principal-down),
 					roi:net_after_deductions/(equity),
 				};
-			})
+			}
 		}
 
 		this.expense = function(name,cost){
