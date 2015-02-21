@@ -39,22 +39,43 @@ var $$$ = {};
 			balances = balances.map(function(d,k){
 
 				var i;
+
 				if (isFunction(interestRate)){
-					i =  interestRate(a,k) / 12;
+					i = interestRate(a,k) / 12;
 				} else {
 					i = interestRate / 12;
 				}
+
 				var annuity =  P * (i + i / (Math.pow(1+i,n-k) -1));
 				var prev = P;
+
 				P*=1+i;
 				P-=annuity;
+
 				var change = prev - P;
 				equity +=change;
 
-				var exp = expenses[0] ? expenses.map(function(a){return a.cost})
-					.reduce(function(a,b){
-						return a + b;
-					}) : 0;
+				var exp = expenses[0] ? expenses.map(function(a){
+					if (isFunction(a.cost)){
+						return a.cost(a,k);
+					} else {
+						return a.cost;
+					}				
+				})
+				.reduce(function(a,b){
+					return a + b;
+				}) : 0;
+
+				var inc = incomes[0] ? incomes.map(function(a){
+					if (isFunction(a.value)){
+						return a.value(a,k);
+					} else {
+						return a.value;
+					}				
+				})
+				.reduce(function(a,b){
+					return a + b;
+				}) : 0;
 
 
 
