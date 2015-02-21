@@ -74,14 +74,17 @@ var $$$ = {};
 					return a + b;
 				}) : 0;
 
-				var inc = incomes[0] ? incomes.map(function(a){
+				var incomes_calculated = incomes.map(function(a){
 					if (isFunction(a.value)){
-						return a.value(mortgage,k);
+						return {
+							name:a.name,
+							value:a.value(mortgage,k)
+						}
 					} else {
-						return a.value;
-					}				
+						return a;
+					}						
 				})
-				.reduce(function(a,b){
+				var incomes_total = incomes_calculated[0] ? incomes_calculated.map(function(x){return x.value}).reduce(function(a,b){
 					return a + b;
 				}) : 0;
 
@@ -97,13 +100,15 @@ var $$$ = {};
 					equity_paid:change,
 					period:k,
 					expenses_calculated:expenses_calculated,
+					income:incomes_total,
+					expenses:expenses_total,
 					payment:annuity,
-					income:inc,
-					net_before_deductions:inc+change-expenses_total-annuity,
+					incomes_calculated:incomes_calculated,
+					net_before_deductions:incomes_total+change-expenses_total-annuity,
 					deductions_from_expenses:expenses_deductible,
 					depreciation:depreciation_total,
 					deductions_from_depreciation:depreciation_deductible,
-					net_after_deductions:inc+change-expenses_total-annuity+expenses_deductible+depreciation_deductible
+					net_after_deductions:incomes_total+change-expenses_total-annuity+expenses_deductible+depreciation_deductible
 				};
 			})
 		}
@@ -210,8 +215,6 @@ var $$$ = {};
 		}
 
 
-
-
 		this.down = function(d){
 			if (d === undefined) {
 				return down;
@@ -230,7 +233,6 @@ var $$$ = {};
 		this.balances = function(){
 			return balances;
 		}
-
 
 	}
 

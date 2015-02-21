@@ -11,8 +11,16 @@ var mortgage = $$$.amortize(136900)
 		return 1100 + i * 3;
 	})
 	.expense('maintenance',400.75)
-	.expense('management',function(d,i){
+	.expense('property tax',1200 / 12)
+	.expense('improvements', 1000 / 12)
+	.expense('down payment interest', function(d,i){
+		return d.down() * 0.068 / 12;
+	})
+	.expense('insurance', function(d,i){
+		return d.principal() * 0.005 / 12;
+	})
+	.expense('property management',function(d,i){
 		return d.income('rent').value(d,i) * 0.8;
 	})
-	.income('parking',50)
+	.income('parking',120)
 	.taxrate(0.37)
