@@ -1,5 +1,5 @@
-# financejs
-finance.js is a powerful javascript library that specializes in amortization.
+# financejs ($$$)
+finance.js *(`$$$`)*is a powerful javascript library that specializes in amortization.
 
 using the amortize function, you can gain very powerful insights into a mortgage. 
 
@@ -70,8 +70,9 @@ mortgage.balances()[150]
       
 ### Use with D3
 
-    d3
-        .select('svg')
-        .data($$$.amortize(100000).balances())
-        .enter(); //sweet!
-
+```javascript
+d3
+	.select('svg')
+	.data($$$.amortize(100000).balances())
+	.enter(); //sweet!
+```
