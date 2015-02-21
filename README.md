@@ -45,13 +45,13 @@ Example:
     
     mortgage.balances()[150]
     {	
-        P: 70359.36, 
-        equity: 66540.63, 
-        interest_paid: 327.663, 
-        interest_rate: 0.055, 
-        equity_paid: 327.29,
-        cap_rate: 0.00208,
-        deductions_from_depreciation: 168.84,
+        P: 70359.36, // amount owing
+        equity: 66540.63, // amount you own
+        interest_paid: 327.663, // interest paid this period 
+        interest_rate: 0.055, // interest rate this period (calculated)
+        equity_paid: 327.29, // equity paid this period
+        cap_rate: 0.00208, // the cap rate this period (return on the lender's principal)
+        deductions_from_depreciation: 168.84, //
         deductions_from_expenses: 753.42,
         depreciation: 456.33,
         equity: 66540.63,
