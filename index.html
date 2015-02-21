@@ -80,7 +80,7 @@
 							<input type="checkbox">
 							<span class="label-body">Print Charts</span>
 						</label>
-						<input class="button-primary" type="submit" value="Print">
+						
 					</div>
 					<div class="six columns">
 						<label for="price">
@@ -97,6 +97,26 @@
 							Amortization (years)
 						</label>
 						<input class="u-full-width" ng-model=details.amortization type="text" id="amortization">
+
+						<div class="row">
+							<div class="eight columns">
+
+						<label for="interest_rate">
+							Interest Rate / ᴀ (%)
+						</label>
+						
+						<input class=u-full-width ng-model=details.interest_rate type="text" id="interest_rate">
+						</div>
+
+						<div class="four columns">		
+
+						<label for="interest_rate">
+							Increase / ᴀ (%)
+						</label>
+						
+						<input class=u-full-width ng-model=details.interest_rate_increase type="text" id="interest_rate">
+						</div>
+						</div>
 
 						<label for="property_tax">
 							Property Tax / ᴀ ($)
@@ -151,10 +171,10 @@
 						</select>
 					</div>
 					<div class="two columns">
-						<label for="rent_increase">
-							Vac Rate (%)
+						<label for="vacancy_rate">
+							Vacancy Rate (%)
 						</label>
-						<input class="u-full-width" ng-model=income.vac_rate type="text" id="rent_increase">
+						<input class="u-full-width" ng-model=income.vac_rate type="text" id="vacancy_rate">
 
 						</select>
 					</div>
@@ -203,10 +223,8 @@
 					<div class="three columns">
 
 						<label for="prop_type">Calculated</label>
-						<select class="u-full-width" id="prop_type">
-						<option value="Option 1">Percent of Income</option>
-						<option value="Option 1">Percent of Value</option>
-						<option value="Option 1">Flat Rate</option>
+						<select class="u-full-width" ng-model=expense.calculated ng-options="i as i for i in ['Flat Rate','Percent of Income','Percent of Value']" id="prop_type">
+						
 						</select>
 					</div>
 					<div class="two columns">
@@ -233,6 +251,7 @@
 						<button ng-click='details.expenses.push({})'>Add expense</button>
 					</div>
 				</div>
+				<input class="button-primary" type="submit" ng-click=calculate() value="Calculate">
 			</form>
 		</div>
 	</div>
@@ -296,7 +315,7 @@
 	<p class=footer>
 		made with financejs &copy;2015 daniel stern, danielstern.ca
 	</p>
-<!-- 
+
 	<table >
 		<thead>
 			<tr>
@@ -312,7 +331,7 @@
 				</td>
 			</tr>
 		</tbody>
-	</table> -->
+	</table>
 	</div>
 	
 	<script src=finance.js></script>

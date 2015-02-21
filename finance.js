@@ -143,6 +143,9 @@ var $$$ = {};
 					cost:cost
 				})
 			} else {
+				if (cost === undefined) {
+					return expenses[index];
+				}
 				expenses[index].cost = cost;
 			}
 
@@ -156,13 +159,16 @@ var $$$ = {};
 			}
 			var index = incomes.map(function(e){return e.name}).indexOf(name);
 			if (index === -1) {
+				if (value === undefined) {
+					return incomes[index].value;
+				} 
 				incomes.push({
 					name:name,
 					value:value
 				})	
 			} else {
 				if (value === undefined) {
-					return incomes[index];
+					return incomes[index].value;
 				} 
 
 				if (value === null) {
