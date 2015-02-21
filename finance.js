@@ -87,7 +87,9 @@ var $$$ = {};
 					equity_paid:change,
 					period:k,
 					expenses:exp,
-					payment:annuity
+					payment:annuity,
+					income:inc,
+					net_before_taxes:inc-exp-annuity
 				};
 			})
 		}
@@ -109,6 +111,26 @@ var $$$ = {};
 			a.calculate();
 			return a;
 		}
+
+		this.income = function(name,value){
+			var index = incomes.map(function(e){return e.name}).indexOf(name);
+			if (index === -1) {
+				if (value === undefined) {
+					return incomes[index];
+				} else {
+					incomes.push({
+						name:name,
+						value:value
+					})	
+				}
+			} else {
+				incomes[index].value = value;
+			}
+
+			a.calculate();
+			return a;
+		}
+
 
 
 

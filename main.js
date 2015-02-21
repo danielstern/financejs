@@ -11,3 +11,6 @@ var a = $$$.amortize(100000)
 	.expense('management',function(d,i){
 		return 300;
 	})
+	.income('rent',function(d,i){
+		return 1100;
+	})
