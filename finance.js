@@ -95,7 +95,12 @@ function Amortization(){
 		if (i === undefined) {
 			return interestRate;
 		}
-		interestRate = i;
+		if (i[i.length -1] === '%') {
+			interestRate = 0.01 * (+i.slice(0,i.length-1));
+		} else {
+			interestRate = i;
+		}
+		
 		a.calculate();
 		return a;
 	}
@@ -185,3 +190,6 @@ var getAmortizationMonthlyPayment = function(startingValue, annualInterest, dura
     }
 
 var a = $$$.amortize(100000)
+	.interest('4.6%')
+	.down('10%')
+	.period('5y')
