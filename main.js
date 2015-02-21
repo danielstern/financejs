@@ -43,23 +43,23 @@ angular.module('Mortgage.Demo',[])
 		incomes:[{
 			name:'Rent',
 			value:1100,
-			annual_increase:0.03,
-			vac_rate:0.15
+			annual_increase:3,
+			vac_rate:15
 		}],
 		expenses:[{
 			name:'Maintenance',
 			value:400.75,
-			annual_increase:0.03,
+			annual_increase:3,
 			calculated:'Flat Rate'
 		},{
 			name:'Property Mangement',
 			value:8,
-			annual_increase:0.03,
+			annual_increase:3,
 			calculated:'Percent of Income'
 		},{
 			name:'Insurance',
 			value:0.5,
-			annual_increase:0.03,
+			annual_increase:3,
 			calculated:'Percent of Value'
 		}]
 
@@ -82,7 +82,7 @@ angular.module('Mortgage.Demo',[])
 			mortgage.income(income.name,function(d,i){
 				// return 100;
 				// debugger;
-				return +income.vac_rate * (+income.value + i / 12 * +income.annual_increase * +income.value); 
+				return (1- +income.vac_rate / 100) * (+income.value + i / 12 * +income.annual_increase * +income.value); 
 			})
 		})
 
