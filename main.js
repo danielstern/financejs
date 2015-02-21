@@ -14,3 +14,4 @@ var a = $$$.amortize(100000)
 	.income('rent',function(d,i){
 		return 1100;
 	})
+	.income('parking',50)
