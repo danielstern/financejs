@@ -91,6 +91,7 @@ var $$$ = {};
 				var expenses_deductible = expenses_total * taxrate;
 				var depreciation_total = depreciation * principal  / 12;
 				var depreciation_deductible = depreciation_total * taxrate;
+				var net_after_deductions = incomes_total+change-expenses_total-annuity+expenses_deductible+depreciation_deductible;
 
 				return {
 					P:P,
@@ -108,7 +109,9 @@ var $$$ = {};
 					deductions_from_expenses:expenses_deductible,
 					depreciation:depreciation_total,
 					deductions_from_depreciation:depreciation_deductible,
-					net_after_deductions:incomes_total+change-expenses_total-annuity+expenses_deductible+depreciation_deductible
+					net_after_deductions:net_after_deductions,
+					cap_rate:net_after_deductions/(principal-down),
+					roi:net_after_deductions/(equity),
 				};
 			})
 		}
