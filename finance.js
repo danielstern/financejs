@@ -133,6 +133,11 @@ var $$$ = {};
 				if (cost === undefined) {
 					return expenses[index];
 				}
+
+				if (cost === null) {
+					delete expenses[index];
+				}
+				
 				expenses.push({
 					name:name,
 					cost:cost
@@ -159,6 +164,10 @@ var $$$ = {};
 				if (value === undefined) {
 					return incomes[index];
 				} 
+
+				if (value === null) {
+					delete incomes[index];					
+				}
 
 				incomes[index].value = value;
 				

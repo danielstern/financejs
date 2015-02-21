@@ -45,15 +45,12 @@
 			<p>
 				Bean counter and number cruncher, at your service.
 			</p>
-			<h2>
-				Forecast
-			</h2>
 			<form>
 				<div class="row">
 					<div class="six columns">
-						<h4>
+						<h2>
 							Property Details
-						</h4>
+						</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -94,32 +91,60 @@
 						<label for="down_payment">
 							Down Payment ($)
 						</label>
-
 						<input class="u-full-width" type="number" id="down_payment">
+
 						<label for="property_tax">
 							Property Tax / ᴀ ($)
 						</label>
 						<input class="u-full-width" type="number" id="property_tax">
+
+						<label for="property_tax">
+							Net Depreciable Percentage
+						</label>
+						<input class="u-full-width" type="number" id="property_tax">
+						<p>Includes rate and percentage of property that is depreciable.  <span title="If the property costs $200000, and the land is worth $100000, and the depreciation on the property is 4%, this number should be entered as 2">(!)</span></p>
+
+						<label for="property_tax">
+							Taxable Rate (%)
+						</label>
+						<input class="u-full-width" type="number" id="property_tax">
 					</div>
 				</div>
+
+
 				<div class="row">
 					<div class="six columns">
-						<h4>
+						<h3>
 						Income
-						</h4>
+						</h3>
 					</div>
 				</div>
 				<div class="row">					
-					<div class="six columns">
-						<label for="rent">
-							Rent ($)
+					<div class="four columns">
+						<label for="income_name">
+							Name
 						</label>
-						<input class="u-full-width" type="number" id="rent">
+						<input class="u-full-width" type="number" id="income_name">
 						
 					</div>
-					<div class="four columns">
+					<div class="two columns">
+						<label for="income_value">
+							Value
+						</label>
+						<input class="u-full-width" type="number" id="income_value">
+						
+					</div>
+					<div class="two columns">
 						<label for="rent_increase">
-							Increase each year (%)
+							Increase/ᴀ (%)
+						</label>
+						<input class="u-full-width" type="number" id="rent_increase">
+
+						</select>
+					</div>
+					<div class="two columns">
+						<label for="rent_increase">
+							Vac Rate (%)
 						</label>
 						<input class="u-full-width" type="number" id="rent_increase">
 
@@ -142,34 +167,51 @@
 					</div>
 				</div>
 
-				
+
 				<div class="row">
 					<div class="six columns">
-						<h4>
+						<h3>
 						Expenses
-						</h4>
+						</h3>
 					</div>
 				</div>
 				<div class="row">					
-					<div class="six columns">
+					<div class="four columns">
 						<label for="">
-							Management Fee
+							Name
 						</label>
 						<input class="u-full-width" type="number" id="prop_name">
 					</div>
-					<div class="six columns">
+					<div class="two columns">
+						<label for="">
+							Cost
+						</label>
+						<input class="u-full-width" type="number" id="prop_name">
+					</div>
+					<div class="four columns">
 
-						<label for="prop_type"></label>
+						<label for="prop_type">Calculated</label>
 						<select class="u-full-width" id="prop_type">
-						<option value="Option 1">Percentage of Income</option>
-						<option value="Option 1">Condominium/Co-ownership</option>
-						<option value="Option 2">Single Residential</option>
-						<option value="Option 3">Multiple Residential</option>
-						<option value="Option 3">Raw Land</option>
+						<option value="Option 1">Percent of Income</option>
+						<option value="Option 1">Percent of Value</option>
+						<option value="Option 1">Flat Rate</option>
 						</select>
 					</div>
-						
-					
+					<div class="two columns">
+						<label for="remove field">
+							Remove
+						</label>
+						<button>
+							-
+						</button>
+
+						</select>
+					</div>						
+				</div>
+				<div class="row">
+					<div class="six columns">
+						<button>+</button>
+					</div>
 				</div>
 			</form>
 		</div>
