@@ -28,22 +28,23 @@ var $$$ = {};
 			balances = [];
 
 			var n = months;
+			var P = principal - down;
+			var equity = down;
+				
 			
 			for (var j = n - 1; j >= 0; j--) {
 				balances[j] = {};
 			}
 			
 			balances = balances.map(function(d,k){
-				var P = principal - down;
-				var equity = down;
-				
+
 				var i;
 				if (isFunction(interestRate)){
-					return interestRate(a,k)
+					i =  interestRate(a,k) / 12;
 				} else {
 					i = interestRate / 12;
 				}
-				var annuity =  P * (i + i / (Math.pow(1+i,n) -1));
+				var annuity =  P * (i + i / (Math.pow(1+i,n-k) -1));
 				var prev = P;
 				P*=1+i;
 				P-=annuity;
@@ -61,9 +62,11 @@ var $$$ = {};
 					P:P,
 					equity:equity,
 					interest_paid:annuity-change,
+					interest_rate:i*12,
 					equity_paid:change,
 					period:k,
-					expenses:exp
+					expenses:exp,
+					payment:annuity
 				};
 			})
 		}
@@ -71,7 +74,9 @@ var $$$ = {};
 		this.expense = function(name,cost){
 			var index = expenses.map(function(e){return e.name}).indexOf(name);
 			if (index === -1) {
-
+				if (cost === undefined) {
+					return expenses[index];
+				}
 				expenses.push({
 					name:name,
 					cost:cost
