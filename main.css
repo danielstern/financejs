@@ -5,3 +5,12 @@ body {
 table {
 	font-size: 10px;
 }
+
+h1 {
+	margin: 3rem;
+	font-size: 7.5rem;
+}
+
+.footer {
+	font-size: 1rem;
+}

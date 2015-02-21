@@ -32,44 +32,208 @@
 
 
 <body ng-app=Mortgage.Demo>
+	<div class="container">
+		
+	
+	<div class="row">
+		<div class="twelve columns">
+			
+		
+			<h1>
+				Mortgagizer
+			</h1>
+			<p>
+				Bean counter and number cruncher, at your service.
+			</p>
+			<h2>
+				Forecast
+			</h2>
+			<form>
+				<div class="row">
+					<div class="six columns">
+						<h4>
+							Property Details
+						</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="six columns">
+						<label for="prop_name">
+							Property Name
+						</label>
+						<input class="u-full-width" type="text" placeholder="1120 Sunnvale Crescent" id="prop_name">
+					</div>
+					<div class="six columns">
+						<label for="prop_type">Property Type</label>
+						<select class="u-full-width" id="prop_type">
+						<option value="Option 1">Commercial</option>
+						<option value="Option 1">Condominium/Co-ownership</option>
+						<option value="Option 2">Single Residential</option>
+						<option value="Option 3">Multiple Residential</option>
+						<option value="Option 3">Raw Land</option>
+						</select>
+					</div>
+				</div>
 
-	<h1>
-		Mortgagizer
-	</h1>
-	<h2>
-		Principal vs Equity over Time
-	</h2>
-	<table >
-		<thead>
-			<tr>
-				<th>
-					Period
-				</th>
-				<td ng-repeat='balance in balances'>
-					{{balance.period}}
-				</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<th>
-					Principal
-				</th>	
-				<td ng-repeat='balance in balances'>
-					{{balance.P | currency}}
-				</td>	
-			</tr>
-			<tr>
-				<th>
-					Equity
-				</th>		
-				<td ng-repeat='balance in balances'>
-					{{balance.equity | currency}}
-				</td>
+				<div class="row">
+					<div class="six columns">
+						<label for="exampleMessage">Notes</label>
+						<textarea class="u-full-width" placeholder="…" id="notes"></textarea>
+						<label>
+							<input type="checkbox">
+							<span class="label-body">Print Charts</span>
+						</label>
+						<input class="button-primary" type="submit" value="Print">
+					</div>
+					<div class="six columns">
+						<label for="price">
+							Price ($)
+						</label>
+						<input class="u-full-width" type="number" id="price">
+						
+						<label for="down_payment">
+							Down Payment ($)
+						</label>
 
-			</tr>
-		</tbody>
-	</table>
+						<input class="u-full-width" type="number" id="down_payment">
+						<label for="property_tax">
+							Property Tax / ᴀ ($)
+						</label>
+						<input class="u-full-width" type="number" id="property_tax">
+					</div>
+				</div>
+				<div class="row">
+					<div class="six columns">
+						<h4>
+						Income
+						</h4>
+					</div>
+				</div>
+				<div class="row">					
+					<div class="six columns">
+						<label for="rent">
+							Rent ($)
+						</label>
+						<input class="u-full-width" type="number" id="rent">
+						
+					</div>
+					<div class="four columns">
+						<label for="rent_increase">
+							Increase each year (%)
+						</label>
+						<input class="u-full-width" type="number" id="rent_increase">
+
+						</select>
+					</div>
+					<div class="two columns">
+						<label for="remove field">
+							Remove
+						</label>
+						<button>
+							-
+						</button>
+
+						</select>
+					</div>	
+				</div>
+				<div class="row">
+					<div class="six columns">
+						<button>+</button>
+					</div>
+				</div>
+
+				
+				<div class="row">
+					<div class="six columns">
+						<h4>
+						Expenses
+						</h4>
+					</div>
+				</div>
+				<div class="row">					
+					<div class="six columns">
+						<label for="">
+							Management Fee
+						</label>
+						<input class="u-full-width" type="number" id="prop_name">
+					</div>
+					<div class="six columns">
+
+						<label for="prop_type"></label>
+						<select class="u-full-width" id="prop_type">
+						<option value="Option 1">Percentage of Income</option>
+						<option value="Option 1">Condominium/Co-ownership</option>
+						<option value="Option 2">Single Residential</option>
+						<option value="Option 3">Multiple Residential</option>
+						<option value="Option 3">Raw Land</option>
+						</select>
+					</div>
+						
+					
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="six columns">
+		<label for="prop_type">Table Details</label>
+		<select class="u-full-width" id="prop_type">
+			<option value="Option 1">Every Five Years</option>
+			<option value="Option 1">Every Year</option>
+			<option value="Option 2">Monthly</option>
+		</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="six columns">
+			<h2>
+				Principal vs Equity over Time
+			</h2>
+			<table >
+				<thead>
+					<tr>
+						<th>
+							Period
+						</th>
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.period + 1}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>
+							Principal
+						</th>	
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.P | currency}}
+						</td>	
+					</tr>
+					<tr>
+						<th>
+							Equity
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{balance.equity | currency}}
+						</td>
+
+					</tr>
+					<tr>
+						<th>
+							Equity:Principal
+						</th>		
+						<td ng-repeat='balance in simpleBalances'>
+							{{(balance.P < 1 ? 1 : balance.equity / mortgage.principal()) * 100  | number:2}}%
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</div>
+	<p class=footer>
+		made with financejs &copy;2015 daniel stern, danielstern.ca
+	</p>
 <!-- 
 	<table >
 		<thead>
@@ -87,6 +251,7 @@
 			</tr>
 		</tbody>
 	</table> -->
+	</div>
 	
 	<script src=finance.js></script>
 	<script src='bower_components/angular/angular.js'></script>

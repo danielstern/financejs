@@ -3,7 +3,8 @@ angular.module('Mortgage.Demo',[])
 	// 11 Sunnvale Crescent 1812
 	var mortgage = $$$.amortize(136900)
 		.interest(function(d,i){
-			var interest = 0.04 + ((i / 12 /  8) * 0.01);
+			// var interest = 0.04 + ((i / 12 /  8) * 0.01);
+			var interest = 0.04;
 			return interest; // interest rate ought to go up
 		})
 		// .interest('5%')
@@ -30,7 +31,9 @@ angular.module('Mortgage.Demo',[])
 
 	$rootScope.mortgage = mortgage;
 	$rootScope.balances = mortgage.balances()
-		.filter(function(a,b){return b%60===59});
+	
+	$rootScope.simpleBalances = mortgage.balances()
+		.filter(function(a,b){return !b||b%60===59});
 
 
 })
