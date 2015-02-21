@@ -1,0 +1,27 @@
+{
+  "name": "$$$",
+  "version": "1.0.0",
+  "homepage": "https://github.com/danielstern/financejs",
+  "authors": [
+    "Daniel Stern <daniel@danielstern.ca>"
+  ],
+  "description": "a financial calculator library for mortgages and amortization",
+  "main": "finance.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "finance",
+    "mortgage",
+    "money",
+    "amort"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
