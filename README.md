@@ -53,18 +53,18 @@ mortgage.balances()[150]
 	interest_rate: 0.055, // interest rate this period (calculated)
 	equity_paid: 327.29, // equity paid this period
 	cap_rate: 0.00208, // the cap rate this period (return on the lender's principal)
-	deductions_from_depreciation: 168.84, //
+	deductions_from_depreciation: 168.84, // the amount of taxes credits available from depreciation
 	deductions_from_expenses: 753.42,
-	depreciation: 456.33,
-	expenses: 2036.278,
-	expenses_calculated: Array[6],
-	income: 1670,
-	incomes_calculated: Array[2],
-	net_after_deductions: 228.32,
-	net_before_deductions: -693.94,
-	payment: 654.95,
-	period: 150,
-	roi: 0.00343
+	depreciation: 456.33, // how much the value of the house depreciated
+	expenses: 2036.278, // total expenses this month
+	expenses_calculated: Array[6], // an array of details on the calculated expenses
+	income: 1670, // total inocome this month
+	incomes_calculated: Array[2], // // an array of details on the calculated incomes
+	net_after_deductions: 228.32, // income this month after deducting expenses and depreciation from taxes
+	net_before_deductions: -693.94, // gross income minus expenses
+	payment: 654.95, // how much is due this month in the mortgage
+	period: 150, // what period (month) it is, relative to the first payment at 0
+	roi: 0.00343 // return on your down payment
 }
 ```
       
