@@ -8,12 +8,12 @@ function barchart1(data2){
 
       // });
       return {
-        "income":a.income,
-        "gain in equity":a.equity_paid,
-        "deductions_from_depreciation":a.deductions_from_depreciation,
-        "deductions_from_expenses":a.deductions_from_expenses,
-        "interest_deductible":a.interest_deductible,
-        "State":b
+        "Income":a.income,
+        "Gains in Equity":a.equity_paid,
+        "Depreciation Deductible":a.deductions_from_depreciation,
+        "Expenses Deductible":a.deductions_from_expenses,
+        "Interest Deductible":a.interest_deductible,
+        "State":a.period
         }
     })
   console.log("data from app",data2);
@@ -42,15 +42,15 @@ function barchart1(data2){
       .orient("left")
       .tickFormat(d3.format(".2s"));
 
-  var svg = d3.select("body").append("svg")
-      .attr("width", width + margin.left + margin.right)
+  var svg = d3.select("#sources-table").append("svg")
+      .attr("width", '100%')
+      // .attr("width", width + margin.left + margin.right)
+      .attr("viewBox", "0 0 960 500")
+      .attr("preserveAspectRatio", "xMidYMid")
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  d3.csv("data.csv", function(error, data2) {
-    // debugger;
-    console.log("native data",data);
     var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "State"; });
 
     data.forEach(function(d) {
@@ -59,7 +59,7 @@ function barchart1(data2){
 
     x0.domain(data.map(function(d) { return d.State; }));
     x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
-    y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
+    y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value + 1000; }); })]);
 
     svg.append("g")
         .attr("class", "x axis")
@@ -74,7 +74,7 @@ function barchart1(data2){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Population");
+        .text("Income");
 
     var state = svg.selectAll(".state")
         .data(data)
@@ -109,6 +109,4 @@ function barchart1(data2){
         .attr("dy", ".35em")
         .style("text-anchor", "end")
         .text(function(d) { return d; });
-
-  });
 }
