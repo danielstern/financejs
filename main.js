@@ -1,6 +1,10 @@
 angular.module('Mortgage.Demo',[])
 .run(function($rootScope,$location){
-	debugger;
+	// debugger;
+	if ($location.search().o) {
+		$rootScope.output = true;
+	}
+
 	if ($location.search().d) {
 		$rootScope.details = JSON.parse($location.search().d);
 	} else {
@@ -46,7 +50,7 @@ angular.module('Mortgage.Demo',[])
 	function calculate() {
 		var plans = $rootScope.details;
 		localStorage['plans'] = JSON.stringify(plans);
-		$location.search({d: JSON.stringify(plans)});
+		$location.search('d',JSON.stringify(plans));
 		var mortgage = $$$.amortize(+plans.price)
 			.down(+plans.down)
 			.interest(function(d,i){

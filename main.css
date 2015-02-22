@@ -37,6 +37,22 @@ table {
  
 }
 
+.output-mode .no-print { display: none !important; } 
+.output-mode .print-only { 
+	display: block !important; 
+	
+} 
+
+.output-mode table {
+	font-size: 14px !important;
+}
+
+ table {
+ 	font-size: 10px;
+ }
+ td,tr,th {
+ 	pad
+
 h1,h2,h3 {
  	page-break-before : always;
 
