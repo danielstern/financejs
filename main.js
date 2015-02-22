@@ -1,45 +1,52 @@
 angular.module('Mortgage.Demo',[])
-.run(function($rootScope){
+.run(function($rootScope,$location){
+	debugger;
+	if ($location.search().d) {
+		$rootScope.details = JSON.parse($location.search().d);
+	} else {
+		$rootScope.details = localStorage['plans'] ? JSON.parse(localStorage['plans']) : {
+			price:136900,
+			down:13690,
+			property_tax:1200,
+			taxrate:35,
+			interest_rate:4,
+			interest_rate_increase:0.5,
+			name:'1812-1152 Sunnyvale Crescent',
+			depreciable_percentage:2,
+			amortization:25,
+			incomes:[{
+				name:'Rent',
+				value:1100,
+				annual_increase:3,
+				vac_rate:15
+			}],
+			expenses:[{
+				name:'Maintenance',
+				value:400.75,
+				annual_increase:3,
+				calculated:'Flat Rate'
+			},{
+				name:'Property Mangement',
+				value:8,
+				annual_increase:3,
+				calculated:'Percent of Income'
+			},{
+				name:'Insurance',
+				value:0.5,
+				annual_increase:3,
+				calculated:'Percent of Value'
+			}]
 
-	$rootScope.details = localStorage['plans'] ? JSON.parse(localStorage['plans']) : {
-		price:136900,
-		down:13690,
-		property_tax:1200,
-		taxrate:35,
-		interest_rate:4,
-		interest_rate_increase:0.5,
-		name:'1812-1152 Sunnyvale Crescent',
-		depreciable_percentage:2,
-		amortization:25,
-		incomes:[{
-			name:'Rent',
-			value:1100,
-			annual_increase:3,
-			vac_rate:15
-		}],
-		expenses:[{
-			name:'Maintenance',
-			value:400.75,
-			annual_increase:3,
-			calculated:'Flat Rate'
-		},{
-			name:'Property Mangement',
-			value:8,
-			annual_increase:3,
-			calculated:'Percent of Income'
-		},{
-			name:'Insurance',
-			value:0.5,
-			annual_increase:3,
-			calculated:'Percent of Value'
-		}]
-
+		}
 	}
+
+	
 	
 
 	function calculate() {
 		var plans = $rootScope.details;
 		localStorage['plans'] = JSON.stringify(plans);
+		$location.search({d: JSON.stringify(plans)});
 		var mortgage = $$$.amortize(+plans.price)
 			.down(+plans.down)
 			.interest(function(d,i){
@@ -93,3 +100,4 @@ angular.module('Mortgage.Demo',[])
 
 
 })
+
