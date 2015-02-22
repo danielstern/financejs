@@ -6,11 +6,22 @@ table {
 	font-size: 10px;
 }
 
-h1 {
-	margin: 3rem;
-	font-size: 6rem;
-}
+
 
 .footer {
 	font-size: 1rem;
+}
+
+.print-only { display: none !important; } 
+@media print { 
+ /* All your print styles go here */
+ #header, #footer, #nav { display: none !important; } 
+ .no-print { display: none !important; } 
+ .print-only { display: block !important; } 
+ table {
+ 	font-size: 10px;
+ }
+ td,tr,th {
+ 	padding: 8px !important;
+ }
 }

@@ -43,7 +43,7 @@ angular.module('Mortgage.Demo',[])
 		var mortgage = $$$.amortize(+plans.price)
 			.down(+plans.down)
 			.interest(function(d,i){
-				return +plans.interest_rate / 100 + i / 12 * +plans.interest_rate_increase / 100;
+				return (+plans.interest_rate / 100) + (i / 12  * +plans.interest_rate_increase / 100);
 			})
 			.taxrate(+plans.taxrate / 100)
 			.depreciation(+plans.depreciable_percentage / 100)
@@ -79,14 +79,15 @@ angular.module('Mortgage.Demo',[])
 		$rootScope.mortgage = mortgage;
 		$rootScope.balances = mortgage.balances();
 
-		console.log(mortgage.balances());
-	
 		$rootScope.simpleBalances = mortgage.balances()
 			.filter(function(a,b){return !b||b%60===59});
+
+
 
 	}
 
 	$rootScope.calculate = calculate;
+	calculate();
 
 	
 

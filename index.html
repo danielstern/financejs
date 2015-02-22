@@ -1,8 +1,6 @@
-
-
 <head>
-	
-  <meta charset="utf-8">
+
+    <meta charset="utf-8">
     <title>Comprehensive Mortgage Calculator | daniel stern</title>
     <meta name="description" content="A modern webapp">
     <meta name="viewport" content="width=device-width">
@@ -31,566 +29,704 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
 
-<body ng-app=Mortgage.Demo>
-	<div class="container">
-		
-	
-	<div class="row">
-		<div class="twelve columns">
-			
-		
-			<h1>
+    <body ng-app=Mortgage.Demo>
+        <div class="container">
+
+
+            <div class="row">
+                <div class="twelve columns">
+                    <h1>
 				{{details.name}}
 			</h1>
-			<!-- <p>
-				Price {{details.price}} , Cap ?
-			</p> -->
-			<form>
-				<div class="row">
-					<div class="six columns">
-						<h2>
-							Property Details
-						</h2>
-					</div>
-				</div>
-				<div class="row">
-					<div class="six columns">
-						<label for="prop_name">
-							Property Name
-						</label>
-						<input ng-model=details.name class="u-full-width" type="text" placeholder="1120 Sunnvale Crescent" id="prop_name">
-					</div>
-					<div class="six columns">
-						<label for="prop_type">Property Type</label>
-						<select class="u-full-width" id="prop_type">
-						<option value="Option 1">Commercial</option>
-						<option value="Option 1">Condominium/Co-ownership</option>
-						<option value="Option 2">Single Residential</option>
-						<option value="Option 3">Multiple Residential</option>
-						<option value="Option 3">Raw Land</option>
-						</select>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="six columns">
-						<label for="exampleMessage">Notes</label>
-						<textarea class="u-full-width" placeholder="…" id="notes"></textarea>
-						<label>
-							<input type="checkbox">
-							<span class="label-body">Print Charts</span>
-						</label>
-						
-					</div>
-					<div class="six columns">
-						<label for="price">
-							Price ($)
-						</label>
-						<input class="u-full-width" ng-model=details.price type="text" id="price">
-						
-						<label for="down_payment">
-							Down Payment ($)
-						</label>
-						<input ng-model=details.down class="u-full-width" type="text" id="down_payment">
+                <div class="no-print">
+                    <form>
+                        <div class="row">
+                            <div class="six columns">
+                                <h2>
+								Property Details
+							</h2>
+                            </div>
+                        </div>
 
-						<label for="amortization">
-							Amortization (years)
-						</label>
-						<input class="u-full-width" ng-model=details.amortization type="text" id="amortization">
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="prop_name">
+                                    Property Name
+                                </label>
+                                <input ng-model=details.name class="u-full-width" type="text" placeholder="1120 Sunnvale Crescent" id="prop_name">
 
-						<div class="row">
-							<div class="eight columns">
+                                <label for="exampleMessage">Notes</label>
+                                <textarea class="u-full-width" placeholder="…" ng-model=details.notes id="notes"></textarea>
+                                <label>
+                                    <input type="checkbox">
+                                    <span class="label-body">Print Charts</span>
+                                </label>
 
-						<label for="interest_rate">
-							Interest Rate / ᴀ (%)
-						</label>
-						
-						<input class=u-full-width ng-model=details.interest_rate type="text" id="interest_rate">
-						</div>
+                            </div>
+                            <div class="six columns">
+                                <label for="price">
+                                    Price ($)
+                                </label>
+                                <input class="u-full-width" ng-model=details.price type="text" id="price">
 
-						<div class="four columns">		
+                                <label for="down_payment">
+                                    Down Payment ($)
+                                </label>
+                                <input ng-model=details.down class="u-full-width" type="text" id="down_payment">
 
-						<label for="interest_rate">
-							Increase / ᴀ (%)
-						</label>
-						
-						<input class=u-full-width ng-model=details.interest_rate_increase type="text" id="interest_rate">
-						</div>
-						</div>
+                                <label for="amortization">
+                                    Amortization (years)
+                                </label>
+                                <input class="u-full-width" ng-model=details.amortization type="text" id="amortization">
 
-						<label for="property_tax">
-							Property Tax / ᴀ ($)
-						</label>
-						<input class="u-full-width" ng-model=details.property_tax type="text" id="property_tax">
+                                <div class="row">
+                                    <div class="eight columns">
 
-						<label for="property_tax">
-							Net Depreciable Percentage
-						</label>
-						<input class="u-full-width" ng-model='details.depreciable_percentage' type="text" id="property_tax">
-						<p>Includes rate and percentage of property that is depreciable.  <span title="If the property costs $200000, and the land is worth $100000, and the depreciation on the property is 4%, this number should be entered as 2">(!)</span></p>
+                                        <label for="interest_rate">
+                                            Interest Rate / ᴀ (%)
+                                        </label>
 
-						<label for="taxrate">
-							Taxable Rate (%)
-						</label>
-						<input  ng-model='details.taxrate' class="u-full-width" type="text" id="taxrate">
-					</div>
-				</div>
+                                        <input class=u-full-width ng-model=details.interest_rate type="text" id="interest_rate">
+                                    </div>
+
+                                    <div class="four columns">
+
+                                        <label for="interest_rate">
+                                            Increase / ᴀ (%)
+                                        </label>
+
+                                        <input class=u-full-width ng-model=details.interest_rate_increase type="text" id="interest_rate">
+                                    </div>
+                                </div>
+
+                                <label for="property_tax">
+                                    Property Tax / ᴀ ($)
+                                </label>
+                                <input class="u-full-width" ng-model=details.property_tax type="text" id="property_tax">
+
+                                <label for="property_tax">
+                                    Net Depreciable Percentage
+                                </label>
+                                <input class="u-full-width" ng-model='details.depreciable_percentage' type="text" id="property_tax">
+                                <p>Includes rate and percentage of property that is depreciable. <span title="If the property costs $200000, and the land is worth $100000, and the depreciation on the property is 4%, this number should be entered as 2">(!)</span>
+                                </p>
+
+                                <label for="taxrate">
+                                    Taxable Rate (%)
+                                </label>
+                                <input ng-model='details.taxrate' class="u-full-width" type="text" id="taxrate">
+                            </div>
+                        </div>
 
 
-				<div class="row">
-					<div class="six columns">
-						<h3>
-						Income
-						</h3>
-						<p ng-if=!details.incomes[0]>
-							No income.							
-						</p>
-					</div>
-				</div>
-				<div class="row" ng-repeat='income in details.incomes'>					
-					<div class="four columns">
-						<label for="income_name">
-							Name
-						</label>
-						<input class="u-full-width" ng-model=income.name type="text" id="income_name">
-						
-					</div>
-					<div class="two columns">
-						<label for="income_value">
-							Value
-						</label>
-						<input class="u-full-width" ng-model=income.value type="text" id="income_value">
-						
-					</div>
-					<div class="two columns">
-						<label for="rent_increase">
-							Increase/ᴀ (%)
-						</label>
-						<input class="u-full-width" ng-model=income.annual_increase type="text" id="rent_increase">
+                        <div class="row">
+                            <div class="six columns">
+                                <h3>
+								Income
+							</h3>
+                                <p ng-if=!details.incomes[0]>
+                                    No income.
+                                </p>
+                            </div>
+                        </div>
 
-						</select>
-					</div>
-					<div class="two columns">
-						<label for="vacancy_rate">
-							Vacancy Rate (%)
-						</label>
-						<input class="u-full-width" ng-model=income.vac_rate type="text" id="vacancy_rate">
+                        <div class="row" ng-repeat='income in details.incomes'>
+                            <div class="four columns">
+                                <label for="income_name">
+                                    Name
+                                </label>
+                                <input class="u-full-width" ng-model=income.name type="text" id="income_name">
 
-						</select>
-					</div>
-					<div class="two columns">
-						<label for="remove field">
-							Remove
-						</label>
-						<button ng-click='details.incomes.splice($index,1)'>
-							-
-						</button>
+                            </div>
+                            <div class="two columns">
+                                <label for="income_value">
+                                    Value
+                                </label>
+                                <input class="u-full-width" ng-model=income.value type="text" id="income_value">
 
-						</select>
-					</div>	
-				</div>
-				<div class="row">
-					<div class="six columns">
-						<button ng-click='details.incomes.push({})'>Add Another Income Source</button>
-					</div>
-				</div>
+                            </div>
+                            <div class="two columns">
+                                <label for="rent_increase">
+                                    Increase/ᴀ (%)
+                                </label>
+                                <input class="u-full-width" ng-model=income.annual_increase type="text" id="rent_increase">
+
+                                </select>
+                            </div>
+                            <div class="two columns">
+                                <label for="vacancy_rate">
+                                    Vacancy Rate (%)
+                                </label>
+                                <input class="u-full-width" ng-model=income.vac_rate type="text" id="vacancy_rate">
+
+                                </select>
+                            </div>
+                            <div class="two columns">
+                                <label for="remove field">
+                                    Remove
+                                </label>
+                                <button ng-click='details.incomes.splice($index,1)'>
+                                    -
+                                </button>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="six columns">
+                                <button ng-click='details.incomes.push({})'>Add Another Income Source</button>
+                            </div>
+                        </div>
 
 
-				<div class="row">
-					<div class="six columns">
-						<h3>
+                        <div class="row">
+                            <div class="six columns">
+                                <h3>
+								Expenses
+							</h3>
+                                <p ng-if=!details.expenses[0]>
+                                    No expenses.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-repeat='expense in details.expenses'>
+                            <div class="three columns">
+                                <label for="">
+                                    Name
+                                </label>
+                                <input class="u-full-width" ng-model=expense.name type="text" id="prop_name">
+                            </div>
+                            <div class="two columns">
+                                <label for="">
+                                    Cost
+                                </label>
+                                <input class="u-full-width" ng-model=expense.value type="text" id="prop_name">
+                            </div>
+                            <div class="three columns">
+
+                                <label for="prop_type">Calculated</label>
+                                <select class="u-full-width" ng-model=expense.calculated ng-options="i as i for i in ['Flat Rate','Percent of Income','Percent of Value']" id="prop_type">
+
+                                </select>
+                            </div>
+                            <div class="two columns">
+                                <label for="rent_increase">
+                                    Increase/ᴀ (%)
+                                </label>
+                                <input class="u-full-width" ng-model=expense.annual_increase type="text" id="rent_increase">
+
+                                </select>
+                            </div>
+                            <div class="two columns">
+                                <label for="remove field">
+                                    Remove
+                                </label>
+                                <button ng-click='details.expenses.splice($index,1)'>
+                                    -
+                                </button>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <button ng-click='details.expenses.push({})'>Add Another Expense</button>
+                            </div>
+                        </div>
+                        <input class="button-primary" type="submit" ng-click=calculate() value="Calculate">
+                    </form>
+                </div>
+
+                <div class="row print-only">
+
+                    <div class="row">
+                        <div class="six columns">
+                            <h4 for="exampleMessage">Notes</h4>
+                            <p class="u-full-width" ng-model=details.notes placeholder="…" id="notes"></p>
+
+                        </div>
+                        <div class="six columns">
+                            <table class=u-full-width>
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            Price ($)
+                                        </th>
+                                        <td>
+                                            {{details.price|currency}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Down Payment ($)
+                                        </th>
+                                        <td>
+                                            {{details.down|currency}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Amortization (years)
+                                        </th>
+                                        <td>
+                                            {{details.amortization}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Interest Rate
+                                        </th>
+                                        <td>
+                                            {{details.interest_rate}}% * {{details.interest_rate_increase}}%/ᴀ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Property Tax
+                                        </th>
+                                        <td>
+                                            {{details.property_tax|currency}}
+                                        </td>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Depreciable Percent
+                                        </th>
+                                        <td>
+                                            {{details.depreciable_percentage}}%
+                                        </td>
+                                    </tr>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Taxable Rate
+                                        </th>
+                                        <td>
+                                            {{details.taxrate}}%
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="six columns">
+                            <h4>
+							Income
+						</h4>
+                            <p ng-if=!details.incomes[0]>
+                                No income.
+                            </p>
+                            <table class=u-full-width>
+                                <thead>
+                                    <th>
+                                        Source
+                                    </th>
+                                    <th>
+                                        Income
+                                    </th>
+                                    <th>
+                                        Vac Rate
+                                    </th>
+                                    <th>
+                                        Est. Annual Change
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat='income in details.incomes'>
+                                        <td>
+                                            {{income.name}}
+                                        </td>
+                                        <td>
+                                            {{income.value|currency}}/m
+                                        </td>
+                                        <td>
+                                            {{income.vac_rate}}%
+                                        </td>
+                                        <td>
+                                            {{income.annual_increase}}%
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="six columns">
+                            <h4>
 						Expenses
-						</h3>
-						<p ng-if=!details.expenses[0]>
-							No expenses.							
-						</p>
-					</div>
-					
-				</div>
-				<div class="row" ng-repeat='expense in details.expenses'>					
-					<div class="three columns">
-						<label for="">
-							Name
-						</label>
-						<input class="u-full-width" ng-model=expense.name type="text" id="prop_name">
-					</div>
-					<div class="two columns">
-						<label for="">
-							Cost
-						</label>
-						<input class="u-full-width" ng-model=expense.value type="text" id="prop_name">
-					</div>
-					<div class="three columns">
+					</h4>
+                            <p ng-if=!details.expenses[0]>
+                                No expenses.
+                            </p>
+                            <table class=u-full-width>
+                                <thead>
+                                    <th>
+                                        Expense
+                                    </th>
+                                    <th>
+                                        Cost
+                                    </th>
+                                    <th>
+                                        Est. Annual Change
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat='expense in details.expenses'>
+                                        <td>
+                                            {{expense.name}}
+                                        </td>
+                                        <td>
+                                            {{expense.value | number:2}} ({{expense.calculated}}) /m
+                                        </td>
+                                        <td>
+                                            {{expense.annual_increase}}%
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-						<label for="prop_type">Calculated</label>
-						<select class="u-full-width" ng-model=expense.calculated ng-options="i as i for i in ['Flat Rate','Percent of Income','Percent of Value']" id="prop_type">
-						
-						</select>
-					</div>
-					<div class="two columns">
-						<label for="rent_increase">
-							Increase/ᴀ (%)
-						</label>
-						<input class="u-full-width" ng-model=expense.annual_increase type="text" id="rent_increase">
+                </div>
+            </div>
+        </div>
 
-						</select>
-					</div>
-					<div class="two columns">
-						<label for="remove field">
-							Remove
-						</label>
-						<button ng-click='details.expenses.splice($index,1)'>
-							-
-						</button>
-
-						</select>
-					</div>						
-				</div>
-				<div class="row">
-					<div class="six columns">
-						<button ng-click='details.expenses.push({})'>Add Another Expense</button>
-					</div>
-				</div>
-				<input class="button-primary" type="submit" ng-click=calculate() value="Calculate">
-			</form>
-		</div>
-	</div>
-	<!-- <div class="row">
-		<div class="six columns">
-		<label for="prop_type">Table Details</label>
-		<select class="u-full-width" id="prop_type">
-			<option value="Option 1">Every Five Years</option>
-			<option value="Option 1">Every Year</option>
-			<option value="Option 2">Monthly</option>
-		</select>
-		</div>
-	</div> -->
-	<div class="row">
-		<div class="six columns">
-			<h2>
+            <div class="row">
+                <div class="six columns">
+                    <h2>
 				Principal vs Equity over Time
 			</h2>
-			<table >
-				<thead>
-					<tr>
-						<th>
-							Period
-						</th>
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.period + 1}}
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>
-							Principal
-						</th>	
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.P | currency}}
-						</td>	
-					</tr>
-					<tr>
-						<th>
-							Equity
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.equity | currency}}
-						</td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Principal
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.P | currency}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Equity
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.equity | currency}}
+                                </td>
 
-					</tr>
-					<tr>
-						<th>
-							Equity:Principal
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{(balance.P < 1 ? 1 : balance.equity / mortgage.principal()) * 100  | number:2}}%
-						</td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Equity:Principal
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{(balance.P
+                                    < 1 ? 1 : balance.equity / mortgage.principal()) * 100 | number:2}}% </td>
 
-					</tr>
-				</tbody>
-			</table>
-		</div>		
-	</div>
-	<div class="row">
-		<div class="six columns">
-			<h2>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <h2>
 				ROI and Cap Rate
 			</h2>
-			<table >
-				<thead>
-					<tr>
-						<th>
-							Period
-						</th>
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.period + 1}}
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>
-							ROI
-						</th>	
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.roi * 100 | number:2}}%
-						</td>	
-					</tr>
-					<tr>
-						<th>
-							Cap Rate
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.cap_rate * 100 | number:2}}%
-						</td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    ROI
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.roi * 100 | number:2}}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Cap Rate
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.cap_rate * 100 | number:2}}%
+                                </td>
 
-					</tr>
-				</tbody>
-			</table>
-		</div>		
-	</div>
-	<div class="row">
-		<div class="six columns">
-			<h2>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <h2>
 				Interest Rate and Payment
 			</h2>
-			<table >
-				<thead>
-					<tr>
-						<th>
-							Period
-						</th>
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.period + 1}}
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>
-							Interest Rate
-						</th>	
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.interest_rate * 100 | number:2}}%
-						</td>	
-					</tr>
-					<tr>
-						<th>
-							Payment
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.payment|currency}}
-						</td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Interest Rate
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.interest_rate * 100 | number:2}}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Payment
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.payment|currency}}
+                                </td>
 
-					</tr>
-				</tbody>
-			</table>
-		</div>		
-	</div>
-	<div class="row">
-		<div class="six columns">
-			<h2>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <h2>
 				Expenses
 			</h2>
-			<table >
-				<thead>
-					<tr>
-						<th>
-							Period
-						</th>
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.period + 1}}
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat='expense in simpleBalances[0].expenses_calculated'>
-						<th>
-							{{expense.name}}
-						</th>	
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.expenses_calculated[$parent.$index].cost | currency}}
-						</td>	
-					</tr>
-					
-				</tbody>
-			</table>
-		</div>		
-	</div>
-	<div class="row">
-		<div class="six columns">
-			<h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat='expense in simpleBalances[0].expenses_calculated'>
+                                <th>
+                                    {{expense.name}}
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.expenses_calculated[$parent.$index].cost | currency}}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <h2>
 				Gross Income
 			</h2>
-			<table >
-				<thead>
-					<tr>
-						<th>
-							Period
-						</th>
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.period + 1}}
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat='income in simpleBalances[0].incomes_calculated'>
-						<th>
-							{{income.name}}
-						</th>	
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.incomes_calculated[$parent.$index].value | currency}}
-						</td>	
-					</tr>
-					
-				</tbody>
-			</table>
-		</div>		
-	</div>
-	<div class="row">
-		<div class="six columns">
-			<h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat='income in simpleBalances[0].incomes_calculated'>
+                                <th>
+                                    {{income.name}}
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.incomes_calculated[$parent.$index].value | currency}}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <h2>
 				Gross Expenses and Gross Income
 			</h2>
-			<table >
-				<thead>
-					<tr>
-						<th>
-							Period
-						</th>
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.period + 1}}
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>
-							Gross Expenses
-						</th>	
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.expenses + balance.payment|currency}}
-						</td>	
-					</tr>
-					<tr>
-						<th>
-							Gross Income
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.income|currency}}
-						</td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Gross Expenses
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.expenses + balance.payment|currency}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Gross Income
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.income|currency}}
+                                </td>
 
-					</tr>
-				</tbody>
-			</table>
-		</div>		
-	</div>
-	<div class="row">
-		<div class="six columns">
-			<h2>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <h2>
 				Sources of Net Income
 			</h2>
-			<table >
-				<thead>
-					<tr>
-						<th>
-							Period
-						</th>
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.period + 1}}
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>
-							Gross Income
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.income|currency}}
-						</td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Gross Income
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.income|currency}}
+                                </td>
 
-					</tr>
-					<tr>
-						<th>
-							Gains in Equity
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.equity_paid|currency}}
-						</td>
-					</tr>
-					<tr>
-						<th>
-							Depreciation Deductible
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.deductions_from_depreciation|currency}}
-						</td>
-					</tr>
-					<tr>
-						<th>
-							Expenses Deductible
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.deductions_from_expenses|currency}}
-						</td>
-					</tr>
-					<tr>
-						<th>
-							Interest Deductible
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.interest_deductible|currency}}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>		
-	</div>
-	<div class="row">
-		<div class="six columns">
-			<h2>
-				Net Before and After Deductions
-			</h2>
-			<table >
-				<thead>
-					<tr>
-						<th>
-							Period
-						</th>
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.period + 1}}
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>
-							Net Before Deductions
-						</th>	
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.net_before_deductions|currency}}
-						</td>	
-					</tr>
-					<tr>
-						<th>
-							Net After Deductions
-						</th>		
-						<td ng-repeat='balance in simpleBalances'>
-							{{balance.net_after_deductions|currency}}
-						</td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Gains in Equity
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.equity_paid|currency}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Depreciation Deductible
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.deductions_from_depreciation|currency}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Expenses Deductible
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.deductions_from_expenses|currency}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Interest Deductible
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.interest_deductible|currency}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="six columns">
+                    <div id="source-viz"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <h2>
+			Net Before and After Deductions
+		</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Net Before Deductions
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.net_before_deductions|currency}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Net After Deductions
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.net_after_deductions|currency}}
+                                </td>
 
-					</tr>
-				</tbody>
-			</table>
-		</div>		
-	</div>
-	<p class=footer>
-		made with financejs &copy;2015 daniel stern, danielstern.ca
-	</p>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class=footer>
+                made with financejs &copy;2015 daniel stern, danielstern.ca
+            </p>
 
-	<table >
+            <!-- <table >
 		<thead>
 			<tr>
 			<th ng-repeat='(key,val) in balances[0]'>
@@ -605,12 +741,12 @@
 				</td>
 			</tr>
 		</tbody>
-	</table>
-	</div>
-	
-	<script src=finance.js></script>
-	<script src='bower_components/angular/angular.js'></script>
-	<script src='bower_components/d3/d3.js'></script>
-	<script src=main.js></script>
-</body>
+	</table> -->
+        </div>
+
+        <script src=finance.js></script>
+        <script src='bower_components/angular/angular.js'></script>
+        <script src='bower_components/d3/d3.js'></script>
+        <script src=main.js></script>
+    </body>
 </head>
