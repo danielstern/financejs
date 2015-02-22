@@ -397,6 +397,44 @@
                     </div>
                 </div>
             </div>
+             <div class="row section">
+                <div class="twelve columns">
+                    <h2>
+						ROI and Cap Rate
+					</h2>
+                    <table class=u-full-width>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Period
+                                </th>
+                                <th ng-repeat='balance in simpleBalances'>
+                                    {{balance.period + 1}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    ROI
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.roi * 100 | number:2}}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Cap Rate
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.cap_rate * 100 | number:2}}%
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 			 <div class="row section">
                 <div class="twelve columns">
                     <h2>
@@ -412,6 +450,10 @@
                         	        {{balance.period + 1}}
                         	    </th>
                         	</tr>
+
+                            
+                        </thead>
+                        <tbody>
                         	<tr>
                         	    <th>
                         	        ROI
@@ -429,9 +471,23 @@
                         	    </td>
 
                         	</tr>
-                            
-                        </thead>
-                        <tbody>
+                        	<tr>
+                        	    <th>
+                        	        Net Before Deductions
+                        	    </th>
+                        	    <td ng-repeat='balance in simpleBalances'>
+                        	        {{balance.net_before_deductions|currency}}
+                        	    </td>
+                        	</tr>
+                        	<tr>
+                        	    <th>
+                        	        Net After Deductions
+                        	    </th>
+                        	    <td ng-repeat='balance in simpleBalances'>
+                        	        {{balance.net_after_deductions|currency}}
+                        	    </td>
+
+                        	</tr>
                         	<tr>
                         	    <th>
                         	        Principal
@@ -466,23 +522,7 @@
                                 </td>
 
                             </tr>
-                            <tr>
-                                <th>
-                                    Net Before Deductions
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.net_before_deductions|currency}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Net After Deductions
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.net_after_deductions|currency}}
-                                </td>
-
-                            </tr>
+                          
                             <tr>
                                 <th>
                                     Interest Rate
@@ -516,9 +556,9 @@
                                 <th>
                                     Period
                                 </th>
-                                <td ng-repeat='balance in simpleBalances'>
+                                <th ng-repeat='balance in simpleBalances'>
                                     {{balance.period + 1}}
-                                </td>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -552,86 +592,12 @@
                     </table>
                 </div>
             </div>
-            <div class="row section">
-                <div class="twelve columns">
-                    <h2>
-						ROI and Cap Rate
-					</h2>
-                    <table class=u-full-width>
-                        <thead>
-                            <tr>
-                                <th>
-                                    Period
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.period + 1}}
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    ROI
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.roi * 100 | number:2}}%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Cap Rate
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.cap_rate * 100 | number:2}}%
-                                </td>
+           
 
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row section">
-                <div class="twleve columns">
-                    <h2>
-						Interest Rate and Payment
-					</h2>
-                    <table class=u-full-width>
-                        <thead>
-                            <tr>
-                                <th>
-                                    Period
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.period + 1}}
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    Interest Rate
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.interest_rate * 100 | number:2}}%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Payment
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.payment|currency}}
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             <div class="row section">
                 <div class="twelve columns no-float">
                     <h2>
-						Expenses
+						Gross Expenses
 					</h2>
                     <table class=u-full-width>
                         <thead>
@@ -639,9 +605,9 @@
                                 <th>
                                     Period
                                 </th>
-                                <td ng-repeat='balance in simpleBalances'>
+                                <th ng-repeat='balance in simpleBalances'>
                                     {{balance.period + 1}}
-                                </td>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -661,7 +627,7 @@
             <div class="row section">
                 <div class="twelve columns">
                     <h2>
-						Income Sources
+						Gross Income
 					</h2>
                     <table class=u-full-width>
                         <thead>
@@ -669,9 +635,9 @@
                                 <th>
                                     Period
                                 </th>
-                                <td ng-repeat='balance in simpleBalances'>
+                                <th ng-repeat='balance in simpleBalances'>
                                     {{balance.period + 1}}
-                                </td>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -700,9 +666,9 @@
                                 <th>
                                     Period
                                 </th>
-                                <td ng-repeat='balance in simpleBalances'>
+                                <th ng-repeat='balance in simpleBalances'>
                                     {{balance.period + 1}}
-                                </td>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
