@@ -24,4 +24,27 @@ table {
  td,tr,th {
  	padding: 8px !important;
  }
+
+   .no-float, .row, .column, {
+  	float: none !important;
+  	
+  }
+
+  .section {
+  	page-break-before : always;
+  }
+
+ 
 }
+
+h1,h2,h3 {
+ 	page-break-before : always;
+ }
+
+  h3, h4 {
+    page-break-after: avoid;
+  }
+  pre, blockquote,table {
+    page-break-inside: avoid;
+  }
+
