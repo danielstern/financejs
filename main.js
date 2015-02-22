@@ -100,6 +100,8 @@ angular.module('Mortgage.Demo',[])
 	$rootScope.calculate = calculate;
 	calculate();
 
+	barchart1($rootScope.mortgage.balances());
+
 	
 
 
