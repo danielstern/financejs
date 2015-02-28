@@ -5,18 +5,28 @@ angular.module('Mortgage.Demo',[])
 		$rootScope.output = true;
 	}
 
-	if ($location.search().d) {
-		$rootScope.details = JSON.parse($location.search().d);
-	} else {
-		$rootScope.details = localStorage['plans'] ? JSON.parse(localStorage['plans']) : {
+	// if ($location.search().d) {
+	// 	$rootScope.details = JSON.parse($location.search().d);
+	// } 
+
+	// if (!$rootScope.details && localStorage['plans']) {
+	// 	$rootScope.details = JSON.parse(localStorage['plans']);
+	// }
+
+	if (!$rootScope.details) {
+		$rootScope.details = {
 			price:136900,
-			down:13690,
+			askingPrice:142000,
+			closing:3,
+			down:20,
 			property_tax:1200,
 			taxrate:35,
+			tax_increase:3,
 			interest_rate:4,
 			interest_rate_increase:0.5,
 			name:'1812-1152 Sunnyvale Crescent',
 			depreciable_percentage:2,
+			imgsrc:'http://40.media.tumblr.com/tumblr_maz6c1LrML1r010fmo1_500.jpg',
 			amortization:25,
 			incomes:[{
 				name:'Rent',
@@ -32,7 +42,7 @@ angular.module('Mortgage.Demo',[])
 			},{
 				name:'Property Mangement',
 				value:8,
-				annual_increase:3,
+				annual_increase:0,
 				calculated:'Percent of Income'
 			},{
 				name:'Insurance',
@@ -51,15 +61,17 @@ angular.module('Mortgage.Demo',[])
 		var plans = $rootScope.details;
 		localStorage['plans'] = JSON.stringify(plans);
 		$location.search('d',JSON.stringify(plans));
-		var mortgage = $$$.amortize(+plans.price)
-			.down(+plans.down)
+		var mortgage = $$$.amortize(+plans.price + +plans.closing*plans.price/100)
+			.down(plans.down+'%')
 			.interest(function(d,i){
 				return (+plans.interest_rate / 100) + (i / 12  * +plans.interest_rate_increase / 100);
 			})
 			.taxrate(+plans.taxrate / 100)
 			.depreciation(+plans.depreciable_percentage / 100)
 			.period(+plans.amortization * 12)
-			.expense('Property Tax', +plans.property_tax / 12);
+			.expense('Property Tax', function(d,i){
+				return (+plans.property_tax / 12) + (i / 12  * +plans.tax_increase / 100 * plans.property_tax / 12);
+			 });
 
 		plans.incomes.forEach(function(income){
 			mortgage.income(income.name,function(d,i){
@@ -100,7 +112,11 @@ angular.module('Mortgage.Demo',[])
 	$rootScope.calculate = calculate;
 	calculate();
 
-	barchart1($rootScope.mortgage.balances());
+	$rootScope.export = function(){
+		 window.open(window.location+'&o=true', '_blank');
+	}
+
+	// barchart1($rootScope.mortgage.balances());
 
 	
 

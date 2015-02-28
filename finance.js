@@ -98,8 +98,9 @@ var $$$ = {};
 				var interest_deductible = interest_paid * taxrate;
 				var depreciation_total = depreciation * principal  / 12;
 				var depreciation_deductible = depreciation_total * taxrate;
-				var net_after_deductions = incomes_total - interest_paid- expenses_total + expenses_deductible+depreciation_deductible+interest_deductible;
-				var net_before_deductions = incomes_total-expenses_total-interest_paid
+				var net_before_deductions = incomes_total-expenses_total-interest_paid;
+				var net_after_deductions = net_before_deductions + expenses_deductible+depreciation_deductible+interest_deductible;
+
 
 				balance.P = P;
 				balance.equity = equity;

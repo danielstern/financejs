@@ -35,9 +35,9 @@
 
             <div class="row">
                 <div class="twelve columns">
-                    <h1>
-				{{details.name}}
-			</h1>
+                <h1>
+				    {{details.name}}
+			     </h1>
 
                     <div class="no-print">
                         <form>
@@ -56,22 +56,36 @@
                                     </label>
                                     <input ng-model=details.name class="u-full-width" type="text" placeholder="1120 Sunnvale Crescent" id="prop_name">
 
+                                    <label for="img">Image URL</label>
+                                    <input type="text" ng-model='details.imgsrc'>
+                                    <img width=100% src="{{details.imgsrc}}" alt="">
+
                                     <label for="exampleMessage">Notes</label>
                                     <textarea class="u-full-width" placeholder="…" ng-model=details.notes id="notes"></textarea>
-                                    <label>
+                                    <!-- <label>
                                         <input type="checkbox">
                                         <span class="label-body">Print Charts</span>
-                                    </label>
+                                    </label> -->
 
                                 </div>
                                 <div class="six columns">
+                                    <label for="askingPrice">
+                                        Asking Price ($)
+                                    </label>
+                                    <input class="u-full-width" ng-model=details.askingPrice type="text" id="askingPrice">
+
                                     <label for="price">
-                                        Price ($)
+                                        Offer ($)
                                     </label>
                                     <input class="u-full-width" ng-model=details.price type="text" id="price">
 
+                                    <label for="closing">
+                                        Closing Costs (%)
+                                    </label>
+                                    <input class="u-full-width" ng-model=details.closing type="text" id="closing">
+
                                     <label for="down_payment">
-                                        Down Payment ($)
+                                        Down Payment (%)
                                     </label>
                                     <input ng-model=details.down class="u-full-width" type="text" id="down_payment">
 
@@ -100,17 +114,33 @@
                                         </div>
                                     </div>
 
-                                    <label for="property_tax">
-                                        Property Tax / ᴀ ($)
-                                    </label>
-                                    <input class="u-full-width" ng-model=details.property_tax type="text" id="property_tax">
+                                    <div class="row">
+                                        <div class="eight columns">
+
+                                            <label for="property_tax">
+                                                Property Tax / ᴀ ($)
+                                            </label>
+                                            <input class="u-full-width" ng-model=details.property_tax type="text" id="property_tax">
+                                        </div>
+
+                                        <div class="four columns">
+
+                                            <label for="tax_increase">
+                                                Increase / ᴀ (%)
+                                            </label>
+
+                                            <input class=u-full-width ng-model=details.tax_increase type="text" id="tax_increase">
+                                        </div>
+                                    </div>
+
+
+                                    
 
                                     <label for="property_tax">
                                         Net Depreciable Percentage
                                     </label>
                                     <input class="u-full-width" ng-model='details.depreciable_percentage' type="text" id="property_tax">
-                                    <p>Includes rate and percentage of property that is depreciable. <span title="If the property costs $200000, and the land is worth $100000, and the depreciation on the property is 4%, this number should be entered as 2">(!)</span>
-                                    </p>
+                                  
 
                                     <label for="taxrate">
                                         Taxable Rate (%)
@@ -237,6 +267,7 @@
                                 </div>
                             </div>
                             <input class="button-primary" type="submit" ng-click=calculate() value="Calculate">
+                            <input class="button-default" type="submit" ng-click=export() value="Export">
                         </form>
                     </div>
 
@@ -244,8 +275,9 @@
 
                         <div class="row">
                             <div class="six columns">
-                                <h4 for="exampleMessage">Notes</h4>
-                                <p class="u-full-width" ng-model=details.notes placeholder="…" id="notes"></p>
+                            	<img style='margin-bottom: 10px' width=100% src="{{details.imgsrc}}" alt="">
+
+                                <p class="u-full-width notes" placeholder="…"  id="notes">{{details.notes}}</p>
 
                             </div>
                             <div class="six columns">
@@ -253,10 +285,44 @@
                                     <tbody>
                                         <tr>
                                             <th>
-                                                Price ($)
+                                                Asking Price ($)
+                                            </th>
+                                            <td>
+                                                {{details.askingPrice|currency}}
+                                            </td>
+                                            
+                                        </tr>
+                                         <tr>
+                                           <th>
+                                                Offer ($)
                                             </th>
                                             <td>
                                                 {{details.price|currency}}
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                           <th>
+                                                Closing Costs ($)
+                                            </th>
+                                            <td>
+                                                {{details.closing*details.price/100|currency}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <th>
+                                                Mortgage Amount
+                                            </th>
+                                            <td>
+                                                {{details.closing*details.price/100+details.price|currency}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Down Payment (%)
+                                            </th>
+                                            <td>
+                                                {{details.down}}%
                                             </td>
                                         </tr>
                                         <tr>
@@ -264,7 +330,7 @@
                                                 Down Payment ($)
                                             </th>
                                             <td>
-                                                {{details.down|currency}}
+                                                {{mortgage.down()|currency}}
                                             </td>
                                         </tr>
                                         <tr>
@@ -280,7 +346,7 @@
                                                 Interest Rate
                                             </th>
                                             <td>
-                                                {{details.interest_rate}}% * {{details.interest_rate_increase}}%/ᴀ
+                                                {{details.interest_rate}}% + {{details.interest_rate_increase}}% / ᴀ
                                             </td>
                                         </tr>
                                         <tr>
@@ -288,7 +354,7 @@
                                                 Property Tax
                                             </th>
                                             <td>
-                                                {{details.property_tax|currency}}
+                                                {{details.property_tax|currency}} * {{details.tax_increase}}% / ᴀ
                                             </td>
                                         </tr>
                                         </tr>
@@ -297,7 +363,7 @@
                                                 Depreciable Percent
                                             </th>
                                             <td>
-                                                {{details.depreciable_percentage}}%
+                                                {{details.depreciable_percentage}}% / ᴀ
                                             </td>
                                         </tr>
                                         </tr>
@@ -307,7 +373,7 @@
                                                 Taxable Rate
                                             </th>
                                             <td>
-                                                {{details.taxrate}}%
+                                                {{details.taxrate}}% / ᴀ
                                             </td>
                                         </tr>
                                     </tbody>
@@ -331,7 +397,7 @@
                                             Source
                                         </th>
                                         <th>
-                                            Income
+                                            Monthly Income
                                         </th>
                                         <th>
                                             Vac Rate
@@ -346,7 +412,7 @@
                                                 {{income.name}}
                                             </td>
                                             <td>
-                                                {{income.value|currency}}/m
+                                                {{income.value|currency}}
                                             </td>
                                             <td>
                                                 {{income.vac_rate}}%
@@ -360,8 +426,8 @@
                             </div>
                             <div class="six columns">
                                 <h4>
-						Expenses
-					</h4>
+					           	Expenses
+					           </h4>
                                 <p ng-if=!details.expenses[0]>
                                     No expenses.
                                 </p>
@@ -371,7 +437,7 @@
                                             Expense
                                         </th>
                                         <th>
-                                            Cost
+                                            Monthly Expense
                                         </th>
                                         <th>
                                             Est. Annual Change
@@ -383,7 +449,7 @@
                                                 {{expense.name}}
                                             </td>
                                             <td>
-                                                {{expense.value | number:2}} ({{expense.calculated}}) /m
+                                                {{expense.value | number:2}} ({{expense.calculated}})
                                             </td>
                                             <td>
                                                 {{expense.annual_increase}}%
@@ -397,44 +463,7 @@
                     </div>
                 </div>
             </div>
-             <div class="row section">
-                <div class="twelve columns">
-                    <h2>
-						ROI and Cap Rate
-					</h2>
-                    <table class=u-full-width>
-                        <thead>
-                            <tr>
-                                <th>
-                                    Period
-                                </th>
-                                <th ng-repeat='balance in simpleBalances'>
-                                    {{balance.period + 1}}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    ROI
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.roi * 100 | number:2}}%
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Cap Rate
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.cap_rate * 100 | number:2}}%
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            
 			 <div class="row section">
                 <div class="twelve columns">
                     <h2>
@@ -510,7 +539,7 @@
                                     Gross Expenses
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.expenses + balance.payment|currency}}
+                                    {{balance.expenses + balance.interest_paid|currency}}
                                 </td>
                             </tr>
                             <tr>
@@ -545,54 +574,7 @@
                     </table>
                 </div>
             </div>
-            <div class="row no-float section">
-                <div class="twelve columns no-float">
-                    <h2>
-						Principal vs Equity over Time
-					</h2>
-                    <table class=u-full-width>
-                        <thead>
-                            <tr>
-                                <th>
-                                    Period
-                                </th>
-                                <th ng-repeat='balance in simpleBalances'>
-                                    {{balance.period + 1}}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    Principal
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.P | currency}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Equity
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.equity | currency}}
-                                </td>
 
-                            </tr>
-                            <tr>
-                                <th>
-                                    Equity:Principal
-                                </th>
-                                <td ng-repeat='balance in simpleBalances'>
-                                    {{(balance.P
-                                    < 1 ? 1 : balance.equity / mortgage.principal()) * 100 | number:2}}% </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-           
 
             <div class="row section">
                 <div class="twelve columns no-float">
@@ -611,6 +593,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                        	 <tr>
+                                <th>
+                                    Interest Payment
+                                </th>
+                                <td ng-repeat='balance in simpleBalances'>
+                                    {{balance.interest_paid | currency}}
+                                </td>
+                            </tr>
                             <tr ng-repeat='expense in simpleBalances[0].expenses_calculated'>
                                 <th>
                                     {{expense.name}}
@@ -681,14 +671,14 @@
                                 </td>
 
                             </tr>
-                            <tr>
+                           <!--  <tr>
                                 <th>
-                                    Gains in Equity
+                                    Gains in Equity (non-entity)
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
                                     {{balance.equity_paid|currency}}
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <th>
                                     Depreciation Deductible
@@ -745,5 +735,15 @@
         <script src='bower_components/d3/d3.js'></script>
         <script src=main.js></script>
         <script src=grouped-bars-1.js></script>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41719424-1', 'danielstern.ca/calculator');
+          ga('send', 'pageview');
+        </script>
     </body>
 </head>

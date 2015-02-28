@@ -34,8 +34,14 @@ table {
   	page-break-inside : avoid;
   }
 
+  .notes {
+	font-size: 10px !important;
+	}
+
+
  
 }
+
 
 .output-mode .no-print { display: none !important; } 
 .output-mode .print-only { 
@@ -46,6 +52,7 @@ table {
 .output-mode table {
 	font-size: 14px !important;
 }
+
 
  table {
  	font-size: 10px;
@@ -74,3 +81,4 @@ h1,h2,h3 {
 [ng-cloak] {
 	display: none;
 }
+
