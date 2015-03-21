@@ -1,6 +1,8 @@
 # financejs ($$$)
 finance.js *(`$$$`)*is a powerful javascript library that specializes in amortization.
 
+## See it an action: http://danielstern.ca/mortgage2
+
 using the amortize function, you can gain very powerful insights into a mortgage. 
 
 - call `balances()` to get an array of the balance sheets at every period in the term
