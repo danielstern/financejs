@@ -1,290 +1,48 @@
-(function(){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var amortize = function amortize() {
+  console.log("Amortizing.....");
+};
 
-var $$$ = {};
+exports.default = amortize;
 
-	$$$.amortize = function(amt) {
-		var b = new Amortization();
-		b.principal(amt);
-		b.calculate();
-		return b;
-	}
+},{}],2:[function(require,module,exports){
+'use strict';
 
-	function Amortization(){
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-		var a = this;
-		var mortgage = this;
-		var compoundingFrequency = 2;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-		var principal = 100000;
-		var interestRate = 0.1;
-		var down = 20000;
-		var months = 240;
+var _amortize2 = require('./amortize');
 
-		var taxrate = 0.35;
-		var depreciation = 0.04;
+var _amortize3 = _interopRequireDefault(_amortize2);
 
-		var expenses = [];
-		var incomes = [];
-		var balances = [];
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-		this.calculate = function(){
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-			var n = months;
+var $$$ = function () {
+  function $$$() {
+    _classCallCheck(this, $$$);
+  }
 
-			while(balances.length > n && n > 0) {
-				balances.pop();
-			}
+  _createClass($$$, [{
+    key: 'amortize',
+    value: function amortize(x) {
+      return (0, _amortize3.default)(x);
+    }
+  }]);
 
-			var P = principal - down;
-			var equity = down;
+  return $$$;
+}();
 
-			
-			for (var j = 0; j < n; j++) {
-				balances[j] = getBalance(a,j);
-			}
-			
-			function getBalance(d,k){
+exports.default = $$$;
 
-				var i;
-				var balance = balances[k] || {};
-
-				if (isFunction(interestRate)){
-					i = interestRate(a,k) / 12;
-				} else {
-					i = interestRate / 12;
-				}
-
-				var annuity =  P * (i + i / (Math.pow(1+i,n-k) -1));
-				var prev = P;
-
-				P*=1+i;
-				P-=annuity;
-
-				var change = prev - P;
-				equity +=change;
-
-				var expenses_calculated =  expenses.map(function(a){
-					if (isFunction(a.cost)){
-						return {
-							name:a.name,
-							cost:a.cost(mortgage,k)
-						}
-					} else {
-						return a;
-					}				
-				});
-				var expenses_total = expenses_calculated[0] ? expenses_calculated
-					.map(function(z){return z.cost}).reduce(function(a,b){
-					return a + b;
-				}) : 0;
-
-				var incomes_calculated = incomes.map(function(a){
-					if (isFunction(a.value)){
-						return {
-							name:a.name,
-							value:a.value(mortgage,k)
-						}
-					} else {
-						return a;
-					}						
-				})
-				var incomes_total = incomes_calculated[0] ? incomes_calculated.map(function(x){return x.value}).reduce(function(a,b){
-					return a + b;
-				}) : 0;
-
-				var interest_paid = annuity - change;
-				var expenses_deductible = expenses_total * taxrate;
-				var interest_deductible = interest_paid * taxrate;
-				var depreciation_total = depreciation * principal  / 12;
-				var depreciation_deductible = depreciation_total * taxrate;
-				var net_before_deductions = incomes_total-expenses_total-interest_paid;
-				var net_after_deductions = net_before_deductions + expenses_deductible+depreciation_deductible+interest_deductible;
-
-
-				balance.P = P;
-				balance.equity = equity;
-				balance.interest_paid = interest_paid;
-				balance.interest_rate = i*12;
-				balance.interest_deductible = interest_deductible;
-				balance.equity_paid = change;
-				balance.period = k;
-				balance.expenses_calculated = expenses_calculated;
-				balance.income = incomes_total;
-				balance.expenses = expenses_total;
-				balance.payment = annuity;
-				balance.incomes_calculated = incomes_calculated;
-				balance.net_before_deductions = net_before_deductions;
-				balance.deductions_from_expenses = expenses_deductible;
-				balance.depreciation = depreciation_total;
-				balance.deductions_from_depreciation = depreciation_deductible;
-				balance.net_after_deductions = net_after_deductions;
-				balance.cap_rate = net_after_deductions * 12 / (principal);
-				balance.roi = net_after_deductions * 12 / equity;
-
-
-
-				return balance;
-				
-			}
-		}
-
-		this.expense = function(name,cost){
-			if (name === undefined) {
-				return expenses;
-			}
-			var index = expenses.map(function(e){return e.name}).indexOf(name);
-			if (index === -1) {
-				if (cost === undefined) {
-					return expenses[index];
-				}
-
-				if (cost === null) {
-					delete expenses[index];
-				}
-				
-				expenses.push({
-					name:name,
-					cost:cost
-				})
-			} else {
-				if (cost === undefined) {
-					return expenses[index];
-				}
-				expenses[index].cost = cost;
-			}
-
-			a.calculate();
-			return a;
-		}
-
-		this.income = function(name,value){
-			if (name === undefined) {
-				return incomes;
-			}
-			var index = incomes.map(function(e){return e.name}).indexOf(name);
-			if (index === -1) {
-				if (value === undefined) {
-					return incomes[index].value;
-				} 
-				incomes.push({
-					name:name,
-					value:value
-				})	
-			} else {
-				if (value === undefined) {
-					return incomes[index].value;
-				} 
-
-				if (value === null) {
-					delete incomes[index];					
-				}
-
-				incomes[index].value = value;
-				
-			}
-
-			a.calculate();
-			return a;
-		}
-
-
-
-
-		this.period = function(p){
-			if (p === undefined) {
-				return months;
-			}
-			var _months;
-			if (p[p.length -1] === 'y') {
-				_months = 12 * (+p.slice(0,p.length-1));
-			} else {
-				_months = p;
-			}
-
-			months = _months;
-			a.calculate();
-			return a;
-		}
-
-		this.interest = function(i){
-			if (i === undefined) {
-				return interestRate;
-			}
-			if (i[i.length -1] === '%') {
-				interestRate = 0.01 * (+i.slice(0,i.length-1));
-			} else {
-				interestRate = i;
-			}
-			
-			a.calculate();
-			return a;
-		}
-
-
-		this.depreciation = function(d){
-			if (d === undefined) {
-				return depreciation;
-			}
-			if (d[d.length -1] === '%') {
-				depreciation = 0.01 * (+d.slice(0,d.length-1));
-			} else {
-				depreciation = d;
-			}
-			
-			a.calculate();
-			return a;
-		}
-
-		this.taxrate = function(t){
-			if (t === undefined) {
-				return taxrate;
-			}
-			if (t[t.length -1] === '%') {
-				taxrate = 0.01 * (+t.slice(0,t.length-1));
-			} else {
-				taxrate = t;
-			}
-			
-			a.calculate();
-			return a;
-		}
-
-
-		this.principal = function(p){
-			if (p === undefined) {
-				return principal;
-			}
-			principal = p;
-			a.calculate();
-			return a;
-		}
-
-
-		this.down = function(d){
-			if (d === undefined) {
-				return down;
-			}
-			if (d[d.length -1] === '%') {
-				var percent = 0.01 * (+d.slice(0,d.length-1));
-				down = percent * a.principal();
-			} else {
-				down = d;
-			}
-
-			a.calculate();
-			return a;
-		}
-
-		this.balances = function(){
-			return balances;
-		}
-
-	}
-
-	function isFunction(x) {
-	  return Object.prototype.toString.call(x) == '[object Function]';
-	}
-
-	window.$$$ = $$$;
-})()
+},{"./amortize":1}]},{},[2])
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm5vZGVfbW9kdWxlcy9icm93c2VyLXBhY2svX3ByZWx1ZGUuanMiLCJzcmNcXGFtb3J0aXplLmpzIiwic3JjXFxmaW5hbmNlLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7QUNBQSxJQUFNLFdBQVcsU0FBWCxRQUFXLEdBQUk7QUFDbkIsVUFBUSxHQUFSLENBQVksaUJBQVo7QUFDRCxDQUZEOztrQkFJZSxROzs7Ozs7Ozs7OztBQ0pmOzs7Ozs7OztJQUVNLEc7Ozs7Ozs7NkJBQ0ssQyxFQUFFO0FBQ1QsYUFBTyx3QkFBUyxDQUFULENBQVA7QUFDRDs7Ozs7O2tCQUdZLEciLCJmaWxlIjoiZ2VuZXJhdGVkLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXNDb250ZW50IjpbIihmdW5jdGlvbiBlKHQsbixyKXtmdW5jdGlvbiBzKG8sdSl7aWYoIW5bb10pe2lmKCF0W29dKXt2YXIgYT10eXBlb2YgcmVxdWlyZT09XCJmdW5jdGlvblwiJiZyZXF1aXJlO2lmKCF1JiZhKXJldHVybiBhKG8sITApO2lmKGkpcmV0dXJuIGkobywhMCk7dmFyIGY9bmV3IEVycm9yKFwiQ2Fubm90IGZpbmQgbW9kdWxlICdcIitvK1wiJ1wiKTt0aHJvdyBmLmNvZGU9XCJNT0RVTEVfTk9UX0ZPVU5EXCIsZn12YXIgbD1uW29dPXtleHBvcnRzOnt9fTt0W29dWzBdLmNhbGwobC5leHBvcnRzLGZ1bmN0aW9uKGUpe3ZhciBuPXRbb11bMV1bZV07cmV0dXJuIHMobj9uOmUpfSxsLGwuZXhwb3J0cyxlLHQsbixyKX1yZXR1cm4gbltvXS5leHBvcnRzfXZhciBpPXR5cGVvZiByZXF1aXJlPT1cImZ1bmN0aW9uXCImJnJlcXVpcmU7Zm9yKHZhciBvPTA7bzxyLmxlbmd0aDtvKyspcyhyW29dKTtyZXR1cm4gc30pIiwiY29uc3QgYW1vcnRpemUgPSAoKT0+e1xyXG4gIGNvbnNvbGUubG9nKFwiQW1vcnRpemluZy4uLi4uXCIpO1xyXG59XHJcblxyXG5leHBvcnQgZGVmYXVsdCBhbW9ydGl6ZTtcclxuIiwiaW1wb3J0IGFtb3J0aXplIGZyb20gJy4vYW1vcnRpemUnO1xyXG5cclxuY2xhc3MgJCQkIHtcclxuICBhbW9ydGl6ZSh4KXtcclxuICAgIHJldHVybiBhbW9ydGl6ZSh4KTtcclxuICB9XHJcbn1cclxuXHJcbmV4cG9ydCBkZWZhdWx0ICQkJDtcclxuIl19
