@@ -1,0 +1,1 @@
+export default val => val[val.length - 1] === 'y' ? 12 * (+val.slice(0, val.length - 1)) : val;
