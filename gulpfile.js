@@ -10,11 +10,14 @@ gulp.task('bundle',function(){
 		debug:true,
 	})
 	.transform(babelify.configure({
-		// sourceMaps:true,
-    global:true,
+        global:true,
 		presets: ['es2015']
 	}))
 	.bundle()
 	.pipe(source('finance.js'))
 	.pipe(gulp.dest('./'));
+});
+
+gulp.task('watch',()=>{
+    return gulp.watch('./src/**/*.js', ['bundle']);
 });

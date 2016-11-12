@@ -1,9 +1,11 @@
-import amortize from './amortize';
+import Amortization from './amortization';
 
-class $$$ {
-  amortize(x){
-    return amortize(x);
+const $$$ = {
+  amortize() {
+    return new Amortization();
   }
-}
+};
+
+window.$$$ = $$$;
 
 export default $$$;

@@ -4,7 +4,7 @@
   "description": "finance.js *(`$$$`)*is a powerful javascript library that specializes in amortization.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-core/register --recursive -R spec \"src/**/*.spec.js\"",
     "start": "http-server",
     "build": "gulp bundle"
   },
@@ -27,13 +27,21 @@
     "babel-preset-es2017": "^6.16.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.1",
+    "chai": "^3.5.0",
     "eslint": "^3.9.1",
+    "eslint-plugin-promise": "^3.3.2",
     "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.9.1",
     "http-server": "^0.9.0",
+    "mocha": "^3.1.2",
     "rollup": "^0.36.3",
     "vinyl-source-stream": "^1.1.0",
     "webpack": "^1.13.3",
     "webpack-cli": "^1.0.0"
+  },
+  "dependencies": {
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "lodash": "^4.16.6"
   }
 }
