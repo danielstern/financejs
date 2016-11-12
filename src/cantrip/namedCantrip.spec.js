@@ -8,6 +8,8 @@ describe("the named cantrip",()=>{
         const _namedCantrip = namedCantrip(null, data)(`candy`);
         _namedCantrip("skittles",50);
         expect(data.candy.length).to.equal(1);
+        _namedCantrip("twix",100);
+        expect(data.candy.length).to.equal(2);
     });
 
     it ("should, given a name and a null value, delete the entry",()=>{
@@ -25,4 +27,6 @@ describe("the named cantrip",()=>{
         expect(data.candy.length).to.equal(1);
         expect(data.candy[0].name).to.equal(`m&ms`);
     })
+
+    // it ("should, given ")
 })

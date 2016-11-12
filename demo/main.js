@@ -72,6 +72,7 @@ angular.module('Mortgage.Demo',[])
 		});
 
 		plans.expenses.forEach(function(expense){
+            console.log("Adding expense....",expense);
 			mortgage.expense(expense.name,function(d,i){
 
 				if (expense.calculated === 'Flat Rate') {
@@ -85,6 +86,9 @@ angular.module('Mortgage.Demo',[])
 					return mortgage.principal() * (+expense.value / 100 / 12 + +expense.value / 100 / 12 * i *  +expense.annualIncrease / 12 / 100);
 				}
 			});
+            console.log("Calculate...");
+            mortgage.calculate();
+            // console.log("mort?",mortgage,mortgage.expense());
 		});
 
 		$rootScope.mortgage = mortgage;

@@ -18,6 +18,6 @@ gulp.task('bundle',function(){
 	.pipe(gulp.dest('./'));
 });
 
-gulp.task('watch',()=>{
+gulp.task('watch',['bundle'],()=>{
     return gulp.watch('./src/**/*.js', ['bundle']);
 });
