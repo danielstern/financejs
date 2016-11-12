@@ -97,7 +97,7 @@
                                     <div class="row">
                                         <div class="eight columns">
 
-                                            <label for="interest_rate">
+                                            <label for="interestRate">
                                                 Interest Rate / ᴀ (%)
                                             </label>
 
@@ -106,7 +106,7 @@
 
                                         <div class="four columns">
 
-                                            <label for="interest_rate">
+                                            <label for="interestRate">
                                                 Increase / ᴀ (%)
                                             </label>
 
@@ -142,10 +142,10 @@
                                     <input class="u-full-width" ng-model='details.depreciablePercentage' type="text" id="propertyTax">
 
 
-                                    <label for="taxrate">
+                                    <label for="taxRate">
                                         Taxable Rate (%)
                                     </label>
-                                    <input ng-model='details.taxrate' class="u-full-width" type="text" id="taxrate">
+                                    <input ng-model='details.taxRate' class="u-full-width" type="text" id="taxRate">
                                 </div>
                             </div>
 
@@ -180,7 +180,7 @@
                                     <label for="rent_increase">
                                         Increase/ᴀ (%)
                                     </label>
-                                    <input class="u-full-width" ng-model=income.annual_increase type="text" id="rent_increase">
+                                    <input class="u-full-width" ng-model=income.annualIncrease type="text" id="rent_increase">
 
                                     </select>
                                 </div>
@@ -246,7 +246,7 @@
                                     <label for="rent_increase">
                                         Increase/ᴀ (%)
                                     </label>
-                                    <input class="u-full-width" ng-model=expense.annual_increase type="text" id="rent_increase">
+                                    <input class="u-full-width" ng-model=expense.annualIncrease type="text" id="rent_increase">
 
                                     </select>
                                 </div>
@@ -346,7 +346,7 @@
                                                 Interest Rate
                                             </th>
                                             <td>
-                                                {{details.interest_rate}}% + {{details.interest_rate_increase}}% / ᴀ
+                                                {{details.interestRate}}% + {{details.interestRate_increase}}% / ᴀ
                                             </td>
                                         </tr>
                                         <tr>
@@ -373,7 +373,7 @@
                                                 Taxable Rate
                                             </th>
                                             <td>
-                                                {{details.taxrate}}% / ᴀ
+                                                {{details.taxRate}}% / ᴀ
                                             </td>
                                         </tr>
                                     </tbody>
@@ -418,7 +418,7 @@
                                                 {{income.vac_rate}}%
                                             </td>
                                             <td>
-                                                {{income.annual_increase}}%
+                                                {{income.annualIncrease}}%
                                             </td>
                                         </tr>
                                     </tbody>
@@ -452,7 +452,7 @@
                                                 {{expense.value | number:2}} ({{expense.calculated}})
                                             </td>
                                             <td>
-                                                {{expense.annual_increase}}%
+                                                {{expense.annualIncrease}}%
                                             </td>
                                         </tr>
                                     </tbody>
@@ -496,7 +496,7 @@
                         	        Cap Rate
                         	    </th>
                         	    <td ng-repeat='balance in simpleBalances'>
-                        	        {{balance.cap_rate * 100 | number:2}}%
+                        	        {{balance.capRate * 100 | number:2}}%
                         	    </td>
 
                         	</tr>
@@ -505,7 +505,7 @@
                         	        Net Before Deductions
                         	    </th>
                         	    <td ng-repeat='balance in simpleBalances'>
-                        	        {{balance.net_before_deductions|currency}}
+                        	        {{balance.netBeforeDeductions|currency}}
                         	    </td>
                         	</tr>
                         	<tr>
@@ -513,7 +513,7 @@
                         	        Net After Deductions
                         	    </th>
                         	    <td ng-repeat='balance in simpleBalances'>
-                        	        {{balance.net_after_deductions|currency}}
+                        	        {{balance.netAfterDeductions|currency}}
                         	    </td>
 
                         	</tr>
@@ -539,7 +539,7 @@
                                     Gross Expenses
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.expenses + balance.interest_paid|currency}}
+                                    {{balance.expenses + balance.interestPaid|currency}}
                                 </td>
                             </tr>
                             <tr>
@@ -557,7 +557,7 @@
                                     Interest Rate
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.interest_rate * 100 | number:2}}%
+                                    {{balance.interestRate * 100 | number:2}}%
                                 </td>
                             </tr>
                             <tr>
@@ -598,15 +598,15 @@
                                     Interest Payment
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.interest_paid | currency}}
+                                    {{balance.interestPaid | currency}}
                                 </td>
                             </tr>
-                            <tr ng-repeat='expense in simpleBalances[0].expenses_calculated'>
+                            <tr ng-repeat='expense in simpleBalances[0].expensesCalculated'>
                                 <th>
                                     {{expense.name}}
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.expenses_calculated[$parent.$index].cost | currency}}
+                                    {{balance.expensesCalculated[$parent.$index].cost | currency}}
                                 </td>
                             </tr>
 
@@ -631,12 +631,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat='income in simpleBalances[0].incomes_calculated'>
+                            <tr ng-repeat='income in simpleBalances[0].incomesCalculated'>
                                 <th>
                                     {{income.name}}
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.incomes_calculated[$parent.$index].value | currency}}
+                                    {{balance.incomesCalculated[$parent.$index].value | currency}}
                                 </td>
                             </tr>
 
@@ -684,7 +684,7 @@
                                     Depreciation Deductible
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.deductions_from_depreciation|currency}}
+                                    {{balance.deductionsFromDepreciation|currency}}
                                 </td>
                             </tr>
                             <tr>
@@ -692,7 +692,7 @@
                                     Expenses Deductible
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.deductions_from_expenses|currency}}
+                                    {{balance.deductionsFromExpenses|currency}}
                                 </td>
                             </tr>
                             <tr>
@@ -700,7 +700,7 @@
                                     Interest Deductible
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.interest_deductible|currency}}
+                                    {{balance.interestDeductible|currency}}
                                 </td>
                             </tr>
                         </tbody>
