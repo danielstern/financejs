@@ -14,8 +14,8 @@ class Amortization {
         this.data = defaults();
     }
 
-    expense (name, cost) {
-        return namedCantrip(this, this.data)(`expenses`)(name, cost);
+    expense (name, value) {
+        return namedCantrip(this, this.data)(`expenses`)(name, value);
     }
 
     income (name, value) {
@@ -51,9 +51,10 @@ class Amortization {
     }
 
     calculate () {
-
+        // console.log("Data?",this.data);
         calculateBalances(this.data);
-        console.log("calculated.",this.data);
+        // console.log("calculated.",this.data);
+
 
         return this;
     }

@@ -3,6 +3,9 @@ import functor from './../functor';
 import sum from 'lodash/sum';
 
 export const calculateAnnuity = ({periods,interestRatePerPeriod,presentValue})=>{
+    if (periods === undefined) throw new Error("Failed to specify argument option: periods");
+    if (!interestRatePerPeriod) throw new Error("Failed to specify argument option: interestRatePerPeriod");
+    if (presentValue === undefined) throw new Error("Failed to specify argument option: presentValue");
 
     if (interestRatePerPeriod === 0) {
         return presentValue / periods;
@@ -11,64 +14,80 @@ export const calculateAnnuity = ({periods,interestRatePerPeriod,presentValue})=>
     return (interestRatePerPeriod * presentValue) / (1 - Math.pow( 1 + interestRatePerPeriod , -periods));
 }
 
-export default (data, k=0)=>{
+export default (data, k=0, returnAll = false)=>{
 
     // should this calculate every previous balance since the first cycle to correctly account for expenses and such?
 
-    const {balances, expenses, incomes, interestRate,principal,down,months,depreciation,taxRate} = data;
-    const interestRatePerPeriod = functor(interestRate)(this, k) / periodsPerYear;
-    let P = principal - down;
-    let equity = down;
-    const numPeriods = months;
+    const {expenses, incomes, interestRate,principal,down,months,depreciation,taxRate} = data;
+    const balances = [];
+    // console.log("attempting calculation...",data);
 
-    let presentValue = k === 0 ? P : balances[k - 1].principalToBePaid;
+    for (let i = 0; i <= k; i++) {
+        //
+        debugger;
 
-    // Code is not taking into account the present value, just the value at the start...
-    const annuity = calculateAnnuity({interestRatePerPeriod,periods: numPeriods - k,presentValue});
-    const lastPeriodPrincipalRemaiing = P;
+        const interestRatePerPeriod = functor(interestRate)(this, i) / periodsPerYear;
+        // console.log(k,balances);
+        let presentValue = i === 0 ? principal - down : balances[i-1].presentValue;
+        let equity = down;
+        const numPeriods = months;
 
-    P *= 1 + interestRatePerPeriod;
-    P -= annuity;
+        // let presentValue = k === 0 ? principalOwing : balances[k - 1].principalToBePaid;
 
-    const change = lastPeriodPrincipalRemaiing - P;
-    equity += change;
+        // Code is not taking into account the present value, just the value at the start...
+        const annuity = calculateAnnuity({interestRatePerPeriod,periods: numPeriods - i,presentValue});
+        const lastPeriodPrincipalRemaiing = presentValue;
 
-    const expensesCalculated = expenses.map(a => ({...a, cost: functor(a.cost)(data, k)}));
-    const incomesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, k)}));
+        presentValue *= 1 + interestRatePerPeriod;
+        presentValue -= annuity;
 
-    const expensesTotal = sum(expensesCalculated.map(z => z.cost));
-    const incomesTotal = sum(incomesCalculated.map(x => x.value));
+        const change = lastPeriodPrincipalRemaiing - presentValue;
+        equity += change;
 
-    const interestPaid = annuity - change;
-    const expensesDeductible = expensesTotal * taxRate;
-    const interestDeductible = interestPaid * taxRate;
-    const depreciationTotal = depreciation * principal / periodsPerYear;
-    const interestRateFinal = interestRatePerPeriod * periodsPerYear;
-    const depreciationDeductible = depreciationTotal * taxRate;
-    const netBeforeDeductions = incomesTotal - expensesTotal - interestPaid;
-    const netAfterDeductions = netBeforeDeductions + expensesDeductible + depreciationDeductible + interestDeductible;
-    const capRate = netAfterDeductions * periodsPerYear / (principal);
-    const roi = netAfterDeductions * periodsPerYear / equity;
+        const expensesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, i)}));
+        const incomesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, i)}));
 
-    const balance = {
-        P,
-        equity,
-        interestPaid,
-        interestRate:interestRateFinal,
-        interestDeductible,
-        equityPaid: change,
-        period: k,
-        expensesCalculated,
-        income: incomesTotal,
-        expenses: expensesTotal,
-        payment: annuity,
-        incomesCalculated,
-        netBeforeDeductions,
-        netAfterDeductions,
-        depreciation: depreciation,
-        capRate,
-        roi
-    };
+        const expensesTotal = sum(expensesCalculated.map(z => z.value));
+        const incomesTotal = sum(incomesCalculated.map(x => x.value));
 
-    return balance;
+        const interestPaid = annuity - change;
+        const expensesDeductible = expensesTotal * taxRate;
+        const interestDeductible = interestPaid * taxRate;
+        const depreciationTotal = depreciation * principal / periodsPerYear;
+        const interestRateFinal = interestRatePerPeriod * periodsPerYear;
+        const depreciationDeductible = depreciationTotal * taxRate;
+        const netBeforeDeductions = incomesTotal - expensesTotal - interestPaid;
+        const netAfterDeductions = netBeforeDeductions + expensesDeductible + depreciationDeductible + interestDeductible;
+        const capRate = netAfterDeductions * periodsPerYear / principal;
+        const roi = netAfterDeductions * periodsPerYear / equity;
+
+        const balance = {
+            presentValue,
+            equity,
+            interestPaid,
+            interestRate:interestRateFinal,
+            interestDeductible,
+            equityPaid: change,
+            period: k,
+            expensesCalculated,
+            income: incomesTotal,
+            expenses: expensesTotal,
+            payment: annuity,
+            incomesCalculated,
+            netBeforeDeductions,
+            netAfterDeductions,
+            depreciation: depreciation,
+            capRate,
+            roi
+        };
+
+        balances.push(balance);
+    }
+
+    if (returnAll) {
+        return balances;
+    } else {
+        return balances[k];
+    }
+
 }

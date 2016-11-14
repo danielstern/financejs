@@ -17,9 +17,9 @@ const cantrip = (context, data = {}) => (key, ...modifier) => (value, shouldModi
         data[key] = value;
     }
 
-    if (context && context.calculate) {
-        context.calculate();
-    }
+    // if (context && context.calculate) {
+    //     context.calculate();
+    // }
 
     return context;
 };

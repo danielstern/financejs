@@ -14,7 +14,7 @@ const defaults = ()=> ({
     'balances': []
 });
 
-describe.only("calculate annuity (payment)",()=>{
+describe("calculate annuity (payment)",()=>{
     it("should do the right thing on zero interest",()=>{
         const annuity = calculateAnnuity({
             interestRatePerPeriod:0,
@@ -36,9 +36,10 @@ describe.only("calculate annuity (payment)",()=>{
     })
 })
 
-describe("The getting of a balance",()=>{
+describe.only("The getting of a balance",()=>{
     it("Should work",()=>{
         const balance = getBalance(defaults());
+        expect(balance.equity).not.to.be.NaN;
 
     });
 
