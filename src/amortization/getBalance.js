@@ -1,22 +1,36 @@
-const monthsPerYear = 12;
+const periodsPerYear = 12;
 import functor from './../functor';
 import sum from 'lodash/sum';
 
-export default (data, k)=>{
+export const calculateAnnuity = ({periods,interestRatePerPeriod,presentValue})=>{
 
-    const {balances,expenses,incomes,interestRate,principal,down,months,depreciation,taxRate} = data;
-    let balance = balances[k] || {};
-    const i = functor(interestRate)(this, k) / monthsPerYear;
+    if (interestRatePerPeriod === 0) {
+        return presentValue / periods;
+    }
+    // return presentValue * (interestRatePerPeriod + interestRatePerPeriod / (Math.pow(1 + interestRatePerPeriod, periods) - 1));
+    return (interestRatePerPeriod * presentValue) / (1 - Math.pow( 1 + interestRatePerPeriod , -periods));
+}
+
+export default (data, k=0)=>{
+
+    // should this calculate every previous balance since the first cycle to correctly account for expenses and such?
+
+    const {balances, expenses, incomes, interestRate,principal,down,months,depreciation,taxRate} = data;
+    const interestRatePerPeriod = functor(interestRate)(this, k) / periodsPerYear;
     let P = principal - down;
     let equity = down;
-    const n = months;
-    const annuity = P * (i + i / (Math.pow(1 + i, n - k) - 1));
-    const prev = P;
+    const numPeriods = months;
 
-    P *= 1 + i;
+    let presentValue = k === 0 ? P : balances[k - 1].principalToBePaid;
+
+    // Code is not taking into account the present value, just the value at the start...
+    const annuity = calculateAnnuity({interestRatePerPeriod,periods: numPeriods - k,presentValue});
+    const lastPeriodPrincipalRemaiing = P;
+
+    P *= 1 + interestRatePerPeriod;
     P -= annuity;
 
-    const change = prev - P;
+    const change = lastPeriodPrincipalRemaiing - P;
     equity += change;
 
     const expensesCalculated = expenses.map(a => ({...a, cost: functor(a.cost)(data, k)}));
@@ -28,15 +42,15 @@ export default (data, k)=>{
     const interestPaid = annuity - change;
     const expensesDeductible = expensesTotal * taxRate;
     const interestDeductible = interestPaid * taxRate;
-    const depreciationTotal = depreciation * principal / monthsPerYear;
-    const interestRateFinal = i * monthsPerYear;
+    const depreciationTotal = depreciation * principal / periodsPerYear;
+    const interestRateFinal = interestRatePerPeriod * periodsPerYear;
     const depreciationDeductible = depreciationTotal * taxRate;
     const netBeforeDeductions = incomesTotal - expensesTotal - interestPaid;
     const netAfterDeductions = netBeforeDeductions + expensesDeductible + depreciationDeductible + interestDeductible;
-    const capRate = netAfterDeductions * monthsPerYear / (principal);
-    const roi = netAfterDeductions * monthsPerYear / equity;
+    const capRate = netAfterDeductions * periodsPerYear / (principal);
+    const roi = netAfterDeductions * periodsPerYear / equity;
 
-    balance = {
+    const balance = {
         P,
         equity,
         interestPaid,
@@ -53,8 +67,7 @@ export default (data, k)=>{
         netAfterDeductions,
         depreciation: depreciation,
         capRate,
-        roi,
-        ...balance
+        roi
     };
 
     return balance;
