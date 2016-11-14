@@ -28,27 +28,32 @@ export default (data, k=0, returnAll = false)=>{
 
         const interestRatePerPeriod = functor(interestRate)(this, i) / periodsPerYear;
         // console.log(k,balances);
-        let presentValue = i === 0 ? principal - down : balances[i-1].presentValue;
-        let equity = down;
+        const prevValue = i === 0 ? principal - down : balances[i-1].presentValue;
+        // let equity = down;
         const numPeriods = months;
 
         // let presentValue = k === 0 ? principalOwing : balances[k - 1].principalToBePaid;
 
         // Code is not taking into account the present value, just the value at the start...
-        const annuity = calculateAnnuity({interestRatePerPeriod,periods: numPeriods - i,presentValue});
-        const lastPeriodPrincipalRemaiing = presentValue;
+        const annuity = calculateAnnuity({interestRatePerPeriod,periods: numPeriods - i,presentValue:prevValue});
+        // const lastPeriodPresentValue = presentValue;
+        const increaseInPresentValueDueToInterestRate = prevValue * interestRatePerPeriod;
 
-        presentValue *= 1 + interestRatePerPeriod;
-        presentValue -= annuity;
+        const presentValue = prevValue + increaseInPresentValueDueToInterestRate - annuity;
 
-        const change = lastPeriodPrincipalRemaiing - presentValue;
-        equity += change;
+        const change = increaseInPresentValueDueToInterestRate - annuity;
+        const equity = i === 0 ? principal - down + change : balances[i-1].equity + change;
+
+        // equity += change;
+        // console.log("Change?",change,equity);
+        // const equity =
 
         const expensesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, i)}));
-        const incomesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, i)}));
+        const incomesCalculated = incomes.map(a => ({...a, value: functor(a.value)(data, i)}));
 
         const expensesTotal = sum(expensesCalculated.map(z => z.value));
         const incomesTotal = sum(incomesCalculated.map(x => x.value));
+
 
         const interestPaid = annuity - change;
         const expensesDeductible = expensesTotal * taxRate;
@@ -59,7 +64,7 @@ export default (data, k=0, returnAll = false)=>{
         const netBeforeDeductions = incomesTotal - expensesTotal - interestPaid;
         const netAfterDeductions = netBeforeDeductions + expensesDeductible + depreciationDeductible + interestDeductible;
         const capRate = netAfterDeductions * periodsPerYear / principal;
-        const roi = netAfterDeductions * periodsPerYear / equity;
+        const roi = (netAfterDeductions * periodsPerYear) / equity;
 
         const balance = {
             presentValue,
@@ -68,7 +73,7 @@ export default (data, k=0, returnAll = false)=>{
             interestRate:interestRateFinal,
             interestDeductible,
             equityPaid: change,
-            period: k,
+            period: i,
             expensesCalculated,
             expensesDeductible,
             income: incomesTotal,

@@ -24,7 +24,12 @@ angular.module('Mortgage.Demo',[])
 				value:1100,
 				annualIncrease:3,
 				vac_rate:15
-			}],
+			},{
+                name:'Parking Space',
+                value:125,
+                annualIncrease:3.5,
+                vac_rate:20
+            }],
 			expenses:[{
 				name:'Maintenance',
 				value:400.75,
