@@ -522,7 +522,7 @@
                         	        Principal
                         	    </th>
                         	    <td ng-repeat='balance in simpleBalances'>
-                        	        {{balance.P | currency}}
+                        	        {{balance.presentValue | currency}}
                         	    </td>
                         	</tr>
                         	<tr>
@@ -684,7 +684,7 @@
                                     Depreciation Deductible
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.deductionsFromDepreciation|currency}}
+                                    {{balance.depreciationDeductible|currency}}
                                 </td>
                             </tr>
                             <tr>
@@ -692,7 +692,7 @@
                                     Expenses Deductible
                                 </th>
                                 <td ng-repeat='balance in simpleBalances'>
-                                    {{balance.deductionsFromExpenses|currency}}
+                                    {{balance.expensesDeductible|currency}}
                                 </td>
                             </tr>
                             <tr>

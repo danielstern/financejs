@@ -24,7 +24,7 @@ export default (data, k=0, returnAll = false)=>{
 
     for (let i = 0; i <= k; i++) {
         //
-        debugger;
+        // debugger;
 
         const interestRatePerPeriod = functor(interestRate)(this, i) / periodsPerYear;
         // console.log(k,balances);
@@ -70,9 +70,11 @@ export default (data, k=0, returnAll = false)=>{
             equityPaid: change,
             period: k,
             expensesCalculated,
+            expensesDeductible,
             income: incomesTotal,
             expenses: expensesTotal,
             payment: annuity,
+            depreciationDeductible,
             incomesCalculated,
             netBeforeDeductions,
             netAfterDeductions,

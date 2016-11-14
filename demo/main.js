@@ -86,7 +86,7 @@ angular.module('Mortgage.Demo',[])
 				}
 			});
             mortgage.calculate();
-            // console.log("mort?",mortgage,mortgage.expense());
+            console.log("mort?",mortgage);
 		});
 
 		$rootScope.mortgage = mortgage;
