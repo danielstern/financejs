@@ -32,20 +32,30 @@ describe("calculate annuity (payment)",()=>{
         },1);
         // expect(annuity).to.be.greaterThan(1);
         expect(annuity).to.be.approximately(132.15, 0.001);
-
     })
+
+    it("should do interest good 2",()=>{
+        const annuity = calculateAnnuity({
+            interestRatePerPeriod:0.1 / 12,
+            periods:36,
+            presentValue:100000
+        },1);
+        // expect(annuity).to.be.greaterThan(1);
+        expect(annuity).to.be.approximately(3226.72, 0.01);
+    })
+
+
 })
 
-describe.only("The getting of a balance",()=>{
+describe("The getting of a balance",()=>{
     it("Should work",()=>{
         const balance = getBalance(defaults());
         expect(balance.equity).not.to.be.NaN;
-
+        expect(balance.equity).not.to.equal(-Infinity);
     });
 
     it("should return the state after one period on a zero value",()=>{
         const balance = getBalance(defaults(),0);
         console.log("Balance?",balance);
-        // expect(balance.equity).to.equal(defaults().down);
     })
 })

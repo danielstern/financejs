@@ -3,57 +3,54 @@ import functor from './../functor';
 import sum from 'lodash/sum';
 
 export const calculateAnnuity = ({periods,interestRatePerPeriod,presentValue})=>{
+
     if (periods === undefined) throw new Error("Failed to specify argument option: periods");
-    if (!interestRatePerPeriod) throw new Error("Failed to specify argument option: interestRatePerPeriod");
+    if (interestRatePerPeriod === undefined) throw new Error("Failed to specify argument option: interestRatePerPeriod");
     if (presentValue === undefined) throw new Error("Failed to specify argument option: presentValue");
 
     if (interestRatePerPeriod === 0) {
         return presentValue / periods;
     }
     // return presentValue * (interestRatePerPeriod + interestRatePerPeriod / (Math.pow(1 + interestRatePerPeriod, periods) - 1));
-    return (interestRatePerPeriod * presentValue) / (1 - Math.pow( 1 + interestRatePerPeriod , -periods));
+    const annuity = (interestRatePerPeriod * presentValue) / (1 - Math.pow( 1 + interestRatePerPeriod , -periods));
+
+    console.log("Calculate annuity:",periods,interestRatePerPeriod,presentValue,annuity);
+    return annuity;
 }
+
+//export const
 
 export default (data, k=0, returnAll = false)=>{
 
-    // should this calculate every previous balance since the first cycle to correctly account for expenses and such?
-
     const {expenses, incomes, interestRate,principal,down,months,depreciation,taxRate} = data;
     const balances = [];
-    // console.log("attempting calculation...",data);
 
     for (let i = 0; i <= k; i++) {
-        //
-        // debugger;
 
+        // debugger;
         const interestRatePerPeriod = functor(interestRate)(this, i) / periodsPerYear;
-        // console.log(k,balances);
         const prevValue = i === 0 ? principal - down : balances[i-1].presentValue;
-        // let equity = down;
         const numPeriods = months;
 
-        // let presentValue = k === 0 ? principalOwing : balances[k - 1].principalToBePaid;
-
-        // Code is not taking into account the present value, just the value at the start...
-        const annuity = calculateAnnuity({interestRatePerPeriod,periods: numPeriods - i,presentValue:prevValue});
-        // const lastPeriodPresentValue = presentValue;
+        // annuity is, again, not being calculated correctly
+        const annuity = calculateAnnuity({interestRatePerPeriod,periods: k - i + 1,presentValue:prevValue});
         const increaseInPresentValueDueToInterestRate = prevValue * interestRatePerPeriod;
 
         const presentValue = prevValue + increaseInPresentValueDueToInterestRate - annuity;
+        // console.log("Annuity?",annuity);
 
         const change = increaseInPresentValueDueToInterestRate - annuity;
-        const equity = i === 0 ? principal - down + change : balances[i-1].equity + change;
-
-        // equity += change;
-        // console.log("Change?",change,equity);
-        // const equity =
+        // console.log("Change",change);
+        // const equity = i === 0 ? (down + change) : (balances[i-1].equity + change);
+        let equity = i === 0 ? down : balances[i-1].equity;
+        equity += annuity;
+        console.log("Equity?",equity,annuity);
 
         const expensesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, i)}));
         const incomesCalculated = incomes.map(a => ({...a, value: functor(a.value)(data, i)}));
 
         const expensesTotal = sum(expensesCalculated.map(z => z.value));
         const incomesTotal = sum(incomesCalculated.map(x => x.value));
-
 
         const interestPaid = annuity - change;
         const expensesDeductible = expensesTotal * taxRate;
