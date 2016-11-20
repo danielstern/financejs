@@ -11,14 +11,12 @@ export const calculateAnnuity = ({periods,interestRatePerPeriod,presentValue})=>
     if (interestRatePerPeriod === 0) {
         return presentValue / periods;
     }
-    // return presentValue * (interestRatePerPeriod + interestRatePerPeriod / (Math.pow(1 + interestRatePerPeriod, periods) - 1));
+
     const annuity = (interestRatePerPeriod * presentValue) / (1 - Math.pow( 1 + interestRatePerPeriod , -periods));
 
-    console.log("Calculate annuity:",periods,interestRatePerPeriod,presentValue,annuity);
     return annuity;
 }
 
-//export const
 
 export default (data, k=0, returnAll = false)=>{
 
@@ -27,23 +25,19 @@ export default (data, k=0, returnAll = false)=>{
 
     for (let i = 0; i <= k; i++) {
 
-        // debugger;
+        debugger;
+
         const interestRatePerPeriod = functor(interestRate)(this, i) / periodsPerYear;
         const prevValue = i === 0 ? principal - down : balances[i-1].presentValue;
         const numPeriods = months;
 
-        // annuity is, again, not being calculated correctly
         const annuity = calculateAnnuity({interestRatePerPeriod,periods: k - i + 1,presentValue:prevValue});
-        const increaseInPresentValueDueToInterestRate = prevValue * interestRatePerPeriod;
+        const interestThisPeriod = prevValue * interestRatePerPeriod;
+        const presentValue = prevValue + interestThisPeriod - annuity;
+        const change = interestThisPeriod - annuity;
 
-        const presentValue = prevValue + increaseInPresentValueDueToInterestRate - annuity;
-        // console.log("Annuity?",annuity);
-
-        const change = increaseInPresentValueDueToInterestRate - annuity;
-        // console.log("Change",change);
-        // const equity = i === 0 ? (down + change) : (balances[i-1].equity + change);
         let equity = i === 0 ? down : balances[i-1].equity;
-        equity += annuity;
+        equity += annuity - interestThisPeriod;
         console.log("Equity?",equity,annuity);
 
         const expensesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, i)}));
