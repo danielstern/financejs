@@ -25,20 +25,18 @@ export default (data, k=0, returnAll = false)=>{
 
     for (let i = 0; i <= k; i++) {
 
-        debugger;
-
         const interestRatePerPeriod = functor(interestRate)(this, i) / periodsPerYear;
         const prevValue = i === 0 ? principal - down : balances[i-1].presentValue;
         const numPeriods = months;
 
-        const annuity = calculateAnnuity({interestRatePerPeriod,periods: k - i + 1,presentValue:prevValue});
+        const annuity = calculateAnnuity({interestRatePerPeriod,periods: k - i,presentValue:prevValue});
         const interestThisPeriod = prevValue * interestRatePerPeriod;
         const presentValue = prevValue + interestThisPeriod - annuity;
         const change = interestThisPeriod - annuity;
 
         let equity = i === 0 ? down : balances[i-1].equity;
         equity += annuity - interestThisPeriod;
-        console.log("Equity?",equity,annuity);
+        // console.log("Equity?",equity,annuity);
 
         const expensesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, i)}));
         const incomesCalculated = incomes.map(a => ({...a, value: functor(a.value)(data, i)}));
@@ -46,7 +44,7 @@ export default (data, k=0, returnAll = false)=>{
         const expensesTotal = sum(expensesCalculated.map(z => z.value));
         const incomesTotal = sum(incomesCalculated.map(x => x.value));
 
-        const interestPaid = annuity - change;
+        const interestPaid = interestThisPeriod;
         const expensesDeductible = expensesTotal * taxRate;
         const interestDeductible = interestPaid * taxRate;
         const depreciationTotal = depreciation * principal / periodsPerYear;
@@ -63,7 +61,7 @@ export default (data, k=0, returnAll = false)=>{
             interestPaid,
             interestRate:interestRateFinal,
             interestDeductible,
-            equityPaid: change,
+            equityPaid: -change,
             period: i,
             expensesCalculated,
             expensesDeductible,

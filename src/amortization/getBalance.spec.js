@@ -54,8 +54,15 @@ describe("The getting of a balance",()=>{
         expect(balance.equity).not.to.equal(-Infinity);
     });
 
-    it("should return the state after one period on a zero value",()=>{
+    xit("should return the state after one period on a zero value",()=>{
         const balance = getBalance(defaults(),0);
-        console.log("Balance?",balance);
+        // console.log("Balance?",balance);
+    });
+})
+
+describe("a series of balances",()=>{
+    it.only("Should have equal cap rate and ROI at the last period",()=>{
+        const balance = getBalance(defaults(),10);
+        expect(balance.roi).to.be.approximately(balance.capRate, 0.0001);
     })
 })
