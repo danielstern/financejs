@@ -36,7 +36,6 @@ export default (data, k=0, returnAll = false)=>{
 
         let equity = i === 0 ? down : balances[i-1].equity;
         equity += annuity - interestThisPeriod;
-        // console.log("Equity?",equity,annuity);
 
         const expensesCalculated = expenses.map(a => ({...a, value: functor(a.value)(data, i)}));
         const incomesCalculated = incomes.map(a => ({...a, value: functor(a.value)(data, i)}));
